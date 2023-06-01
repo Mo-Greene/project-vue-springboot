@@ -18,6 +18,7 @@ bin/
 
 ### IntelliJ IDEA ###
 application.yml
+log4jdbc.log4j2.properties
 
 .idea
 *.iws
