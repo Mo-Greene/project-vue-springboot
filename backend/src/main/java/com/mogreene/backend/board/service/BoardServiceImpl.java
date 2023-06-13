@@ -21,9 +21,15 @@ public class BoardServiceImpl implements BoardService {
         String free = "FREE";
         String notice = "NOTICE";
 
-        List<BoardDto> list = baseRepository.getFreeArticle(notice);
-        log.info("list : " + list);
+        List<BoardDto> list = baseRepository.getFreeArticle(free);
 
         return list;
+    }
+
+    @Override
+    public void postArticle(BoardDto boardDto) {
+
+        log.info("boardDto : " + boardDto);
+        baseRepository.postFreeArticle(boardDto);
     }
 }

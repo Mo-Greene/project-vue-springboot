@@ -9,4 +9,6 @@ import java.util.List;
 public interface BaseRepository {
 
     List<BoardDto> getFreeArticle(String category);
+
+    void postFreeArticle(BoardDto boardDto);
 }

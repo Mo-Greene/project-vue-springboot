@@ -19,4 +19,21 @@
             0, 10;
         ;
     </select>
+
+    <insert id="postFreeArticle" parameterType="BoardDto">
+        INSERT INTO
+            base_board(
+                board_title,
+                board_writer,
+                board_content,
+                category_board
+            )
+
+        VALUES
+            (#{boardTitle},
+             #{boardWriter},
+             #{boardContent},
+             #{categoryBoard})
+        ;
+    </insert>
 </mapper>

@@ -7,4 +7,6 @@ import java.util.List;
 public interface BoardService {
 
     List<BoardDto> readArticle();
+
+    void postArticle(BoardDto boardDto);
 }

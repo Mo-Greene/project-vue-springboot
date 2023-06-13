@@ -20,5 +20,5 @@ public class BoardDto {
     private String boardContent;
     private Timestamp boardRegDate;
     private Timestamp boardModDate;
-
+    private CategoryBoard categoryBoard;
 }
