@@ -39,24 +39,24 @@ public class CustomSecurityConfig {
 
         log.info("----configure----");
 
-        http.formLogin();
+//        http.formLogin();
 //        http.formLogin().loginPage("/user/login");
 
         //csrf 해제
-        http.csrf().disable();
+//        http.csrf().disable();
 
         return http.build();
     }
 
-    /**
-     * 정적자원 예외처리
-     * @return
-     */
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-
-        return (web) ->
-                web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
-    }
+//    /**
+//     * 정적자원 예외처리
+//     * @return
+//     */
+//    @Bean
+//    public WebSecurityCustomizer webSecurityCustomizer() {
+//
+//        return (web) ->
+//                web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+//    }
 
 }
