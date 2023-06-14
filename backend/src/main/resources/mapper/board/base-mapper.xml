@@ -2,6 +2,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mogreene.backend.board.repository.BaseRepository">
 
+    <!--부모게시글 등록-->
     <insert id="postBaseBoard" parameterType="BoardDto" useGeneratedKeys="true" keyProperty="boardNo">
         INSERT INTO
             base_board(
@@ -12,4 +13,27 @@
             (#{categoryBoard})
         ;
     </insert>
+
+    <!--게시글 수정-->
+    <update id="updateBaseBoard" parameterType="BoardDto">
+        UPDATE
+            base_board
+
+        SET
+            board_mod_date = current_timestamp
+
+        WHERE
+            board_no = #{boardNo}
+        ;
+    </update>
+
+    <!--게시글 삭제-->
+    <delete id="deleteBaseBoard" parameterType="Long">
+        DELETE FROM
+                   base_board
+
+        WHERE
+            board_no = #{boardNo}
+        ;
+    </delete>
 </mapper>

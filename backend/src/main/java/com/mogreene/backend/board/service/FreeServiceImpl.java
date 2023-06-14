@@ -46,4 +46,19 @@ public class FreeServiceImpl implements FreeService {
 
         return freeRepository.readFreeArticle(boardNo);
     }
+
+    //자유게시글 수정
+    @Override
+    public void updateFreeArticle(BoardDTO boardDTO) {
+
+        freeRepository.updateFreeArticle(boardDTO);
+        baseRepository.updateBaseBoard(boardDTO);
+    }
+
+    //자유게시글 삭제
+    @Override
+    public void deleteFreeArticle(Long boardNo) {
+
+        baseRepository.deleteBaseBoard(boardNo);
+    }
 }

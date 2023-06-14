@@ -14,4 +14,10 @@ public interface BaseRepository {
 
     //게시판 등록
     void postBaseBoard(BoardDTO boardDTO);
+
+    //게시글 수정
+    void updateBaseBoard(BoardDTO boardDTO);
+
+    //게시글 삭제
+    void deleteBaseBoard(Long boardNo);
 }

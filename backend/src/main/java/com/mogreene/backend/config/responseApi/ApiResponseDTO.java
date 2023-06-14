@@ -1,4 +1,4 @@
-package com.mogreene.backend.config;
+package com.mogreene.backend.config.responseApi;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

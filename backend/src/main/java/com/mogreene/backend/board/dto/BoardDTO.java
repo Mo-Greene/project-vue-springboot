@@ -1,5 +1,6 @@
 package com.mogreene.backend.board.dto;
 
+import com.mogreene.backend.config.enumType.CategoryBoard;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

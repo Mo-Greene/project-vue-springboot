@@ -1,4 +1,4 @@
-package com.mogreene.backend.board.dto;
+package com.mogreene.backend.config.enumType;
 
 /**
  * @name : CategoryBoard

@@ -2,7 +2,7 @@ package com.mogreene.backend.board.controller;
 
 import com.mogreene.backend.board.dto.BoardDTO;
 import com.mogreene.backend.board.service.FreeService;
-import com.mogreene.backend.config.ApiResponseDTO;
+import com.mogreene.backend.config.responseApi.ApiResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -69,5 +69,38 @@ public class FreeController {
                 .build();
 
         return new ResponseEntity<>(apiResponseDTO, HttpStatus.OK);
+    }
+
+    /**
+     * 자유게시글 수정
+     * @param boardDTO
+     * @return
+     */
+    @PutMapping("/free/modify/{boardNo}")
+    public ResponseEntity<ApiResponseDTO<?>> updateFreeArticle(@PathVariable Long boardNo,
+                                                               @RequestBody BoardDTO boardDTO) {
+
+        boardDTO.setBoardNo(boardNo);
+        freeService.updateFreeArticle(boardDTO);
+
+        ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()
+                .httpStatus(HttpStatus.OK)
+                .data("Modify_OK")
+                .build();
+
+        return new ResponseEntity<>(apiResponseDTO, HttpStatus.OK);
+    }
+
+    /**
+     * 자유게시글 삭제
+     * @param boardNo
+     * @return
+     */
+    @DeleteMapping("/free/delete/{boardNo}")
+    public ResponseEntity<ApiResponseDTO<?>> deleteFreeArticle(@PathVariable Long boardNo) {
+
+        freeService.deleteFreeArticle(boardNo);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

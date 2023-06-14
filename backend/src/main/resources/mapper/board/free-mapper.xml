@@ -27,6 +27,7 @@
             bf.board_title,
             bf.board_writer,
             bb.board_reg_date,
+            bb.board_mod_date,
             bb.board_view,
             bb.category_board
 
@@ -59,4 +60,19 @@
             bf.board_no = #{boardNo}
         ;
     </select>
+
+    <!--게시글 수정-->
+    <update id="updateFreeArticle" parameterType="BoardDto">
+        UPDATE
+            board_free
+
+        SET
+            board_title = #{boardTitle},
+            board_writer = #{boardWriter},
+            board_content = #{boardContent}
+
+        WHERE
+            board_no = #{boardNo}
+        ;
+    </update>
 </mapper>

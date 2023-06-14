@@ -20,4 +20,10 @@ public interface FreeService {
 
     //자유게시글 상세조회
     BoardDTO readFreeArticle(Long boardNo);
+
+    //자유게시글 수정
+    void updateFreeArticle(BoardDTO boardDTO);
+
+    //자유게시글 삭제
+    void deleteFreeArticle(Long boardNo);
 }

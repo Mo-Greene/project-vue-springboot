@@ -20,5 +20,9 @@ public interface FreeRepository {
     //자유게시판 조회
     List<BoardDTO> getFreeArticle();
 
+    //자유게시글 상세조회
     BoardDTO readFreeArticle(Long boardNo);
+
+    //자유게시글 수정
+    void updateFreeArticle(BoardDTO boardDTO);
 }
