@@ -2,38 +2,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mogreene.backend.board.repository.BaseRepository">
 
-    <select id="getFreeArticle" resultType="BoardDto">
-        SELECT
-            board_title,
-            board_writer,
-            board_reg_date,
-            board_view
-
-        FROM
-            base_board
-
-        ORDER BY
-            board_no DESC
-
-        LIMIT
-            0, 10;
-        ;
-    </select>
-
-    <insert id="postFreeArticle" parameterType="BoardDto">
+    <insert id="postBaseBoard" parameterType="BoardDto" useGeneratedKeys="true" keyProperty="boardNo">
         INSERT INTO
             base_board(
-                board_title,
-                board_writer,
-                board_content,
                 category_board
             )
 
         VALUES
-            (#{boardTitle},
-             #{boardWriter},
-             #{boardContent},
-             #{categoryBoard})
+            (#{categoryBoard})
         ;
     </insert>
 </mapper>

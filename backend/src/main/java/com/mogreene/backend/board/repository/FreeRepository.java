@@ -4,7 +4,8 @@ import com.mogreene.backend.board.dto.BoardDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface BaseRepository {
+public interface FreeRepository {
 
-    int postBaseBoard(BoardDTO boardDTO);
+    void postFreeArticle(BoardDTO boardDto);
+
 }

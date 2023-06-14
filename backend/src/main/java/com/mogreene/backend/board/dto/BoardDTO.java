@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BoardDto {
+public class BoardDTO {
 
     private Long boardNo;
     private String boardTitle;
@@ -21,4 +21,5 @@ public class BoardDto {
     private Timestamp boardRegDate;
     private Timestamp boardModDate;
     private CategoryBoard categoryBoard;
+
 }

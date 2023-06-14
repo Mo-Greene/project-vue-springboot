@@ -1,7 +1,7 @@
 package com.mogreene.backend.board.controller;
 
-import com.mogreene.backend.board.dto.BoardDto;
-import com.mogreene.backend.board.service.BoardService;
+import com.mogreene.backend.board.dto.BoardDTO;
+import com.mogreene.backend.board.service.FreeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -11,26 +11,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @Slf4j
 @RestController
 @RequiredArgsConstructor
 public class FreeController {
 
-    private final BoardService boardService;
+    private final FreeService freeService;
 
     @GetMapping("/free")
     public ResponseEntity<?> readArticle() {
 
-        List<BoardDto> list = boardService.readArticle();
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/free")
-    public ResponseEntity<?> postArticle(@RequestBody BoardDto boardDto) {
+    public ResponseEntity<?> postArticle(@RequestBody BoardDTO boardDto) {
 
-        boardService.postArticle(boardDto);
+        freeService.postArticle(boardDto);
         return null;
     }
 }
