@@ -1,12 +1,10 @@
-package com.mogreene.backend.board.service.boardImpl;
+package com.mogreene.backend.board.service;
 
 import com.mogreene.backend.board.dto.BoardDTO;
-import com.mogreene.backend.board.repository.BaseRepository;
-import com.mogreene.backend.board.repository.FreeRepository;
-import com.mogreene.backend.board.service.BoardService;
+import com.mogreene.backend.board.repository.board.BaseRepository;
+import com.mogreene.backend.board.repository.board.FreeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,9 +18,8 @@ import java.util.List;
  */
 @Slf4j
 @Service
-@Qualifier("freeService")
 @RequiredArgsConstructor
-public class FreeServiceImpl implements BoardService {
+public class FreeServiceImpl implements FreeService {
 
     private final BaseRepository baseRepository;
     private final FreeRepository freeRepository;
@@ -30,7 +27,7 @@ public class FreeServiceImpl implements BoardService {
     //자유게시판 등록
     @Override
     @Transactional
-    public void postArticle(BoardDTO boardDTO) {
+    public void postFreeArticle(BoardDTO boardDTO) {
 
         //base_board insert
         baseRepository.postBaseBoard(boardDTO);
@@ -42,7 +39,7 @@ public class FreeServiceImpl implements BoardService {
     //자유게시판 조회
     @Override
     @Transactional(readOnly = true)
-    public List<BoardDTO> getArticleList() {
+    public List<BoardDTO> getFreeArticleList() {
 
         return freeRepository.getFreeArticle();
     }
@@ -50,7 +47,7 @@ public class FreeServiceImpl implements BoardService {
     //자유게시글 상세조회
     @Override
     @Transactional(readOnly = true)
-    public BoardDTO readArticle(Long boardNo) {
+    public BoardDTO readFreeArticle(Long boardNo) {
 
         //조회수 증가
         baseRepository.updateBoardView(boardNo);
@@ -60,7 +57,7 @@ public class FreeServiceImpl implements BoardService {
 
     //자유게시글 수정
     @Override
-    public void updateArticle(BoardDTO boardDTO) {
+    public void updateFreeArticle(BoardDTO boardDTO) {
 
         //update board_free table
         freeRepository.updateFreeArticle(boardDTO);
@@ -71,7 +68,7 @@ public class FreeServiceImpl implements BoardService {
 
     //자유게시글 삭제
     @Override
-    public void deleteArticle(Long boardNo) {
+    public void deleteFreeArticle(Long boardNo) {
 
         baseRepository.deleteBaseBoard(boardNo);
     }

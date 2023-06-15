@@ -1,11 +1,10 @@
 package com.mogreene.backend.board.controller;
 
 import com.mogreene.backend.board.dto.BoardDTO;
-import com.mogreene.backend.board.service.BoardService;
+import com.mogreene.backend.board.service.NoticeService;
 import com.mogreene.backend.config.responseApi.ApiResponseDTO;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,14 +18,10 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequestMapping("/notice")
+@RequiredArgsConstructor
 public class NoticeController {
 
-    private final BoardService noticeService;
-
-    @Autowired
-    public NoticeController(@Qualifier("noticeService") BoardService boardService) {
-        this.noticeService = boardService;
-    }
+    private final NoticeService noticeService;
 
     /**
      * 공지게시판 등록
@@ -36,7 +31,7 @@ public class NoticeController {
     @PostMapping("")
     public ResponseEntity<ApiResponseDTO<?>> postFreeArticle(@RequestBody BoardDTO boardDto) {
 
-        noticeService.postArticle(boardDto);
+        noticeService.postNoticeArticle(boardDto);
 
         ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()
                 .httpStatus(HttpStatus.CREATED)
@@ -54,7 +49,7 @@ public class NoticeController {
 
         ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()
                 .httpStatus(HttpStatus.OK)
-                .data(noticeService.getArticleList())
+                .data(noticeService.getNoticeArticleList())
                 .build();
 
         return new ResponseEntity<>(apiResponseDTO, HttpStatus.OK);
@@ -70,7 +65,7 @@ public class NoticeController {
 
         ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()
                 .httpStatus(HttpStatus.OK)
-                .data(noticeService.readArticle(boardNo))
+                .data(noticeService.readNoticeArticle(boardNo))
                 .build();
 
         return new ResponseEntity<>(apiResponseDTO, HttpStatus.OK);
@@ -87,7 +82,7 @@ public class NoticeController {
                                                                @RequestBody BoardDTO boardDTO) {
 
         boardDTO.setBoardNo(boardNo);
-        noticeService.updateArticle(boardDTO);
+        noticeService.updateNoticeArticle(boardDTO);
 
         ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()
                 .httpStatus(HttpStatus.OK)
@@ -105,7 +100,7 @@ public class NoticeController {
     @DeleteMapping("/delete/{boardNo}")
     public ResponseEntity<ApiResponseDTO<?>> deleteFreeArticle(@PathVariable Long boardNo) {
 
-        noticeService.deleteArticle(boardNo);
+        noticeService.deleteNoticeArticle(boardNo);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mogreene.backend.board.repository.board.AttachmentRepository">
+
+    <!--자료실 등록-->
+    <insert id="postAttachmentArticle" parameterType="BoardDto">
+        INSERT INTO
+            board_attachment(
+                attachment_title,
+                attachment_content,
+                attachment_writer,
+                board_no)
+        VALUES
+            (#{boardTitle},
+             #{boardContent},
+             #{boardWriter},
+             #{boardNo})
+        ;
+    </insert>
+
+    <!--자료실 조회-->
+    <select id="getAttachmentArticle" resultType="BoardDto">
+        SELECT
+            ba.board_no,
+            ba.attachment_title,
+            ba.attachment_writer,
+            bb.board_reg_date,
+            bb.board_mod_date,
+            bb.board_view,
+            bb.category_board
+
+        FROM board_attachment ba
+        LEFT JOIN base_board bb
+            ON bb.board_no = ba.board_no
+
+        ORDER BY
+            ba.board_no DESC
+
+        LIMIT 0, 10
+        ;
+    </select>
+
+    <!--자료실 상세조회-->
+    <select id="readAttachment" resultType="BoardDto" parameterType="Long">
+        SELECT
+            ba.board_no,
+            ba.attachment_title,
+            ba.attachment_writer,
+            ba.attachment_content,
+            bb.board_reg_date,
+            bb.board_mod_date,
+            bb.board_view,
+            bb.category_board
+
+        FROM board_attachment ba
+        LEFT JOIN base_board bb
+            ON ba.board_no = bb.board_no
+
+        WHERE
+            ba.board_no = #{boardNo}
+        ;
+    </select>
+
+    <!--자료실 수정-->
+    <update id="updateAttachmentArticle" parameterType="BoardDto">
+        UPDATE
+            board_attachment
+
+        SET
+            attachment_title = #{boardTitle},
+            attachment_writer = #{boardWriter},
+            attachment_content = #{boardContent}
+
+        WHERE
+            board_no = #{boardNo}
+        ;
+    </update>
+</mapper>

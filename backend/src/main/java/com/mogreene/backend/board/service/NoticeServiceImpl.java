@@ -1,12 +1,10 @@
-package com.mogreene.backend.board.service.boardImpl;
+package com.mogreene.backend.board.service;
 
 import com.mogreene.backend.board.dto.BoardDTO;
-import com.mogreene.backend.board.repository.BaseRepository;
-import com.mogreene.backend.board.repository.NoticeRepository;
-import com.mogreene.backend.board.service.BoardService;
+import com.mogreene.backend.board.repository.board.BaseRepository;
+import com.mogreene.backend.board.repository.board.NoticeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,9 +18,8 @@ import java.util.List;
  */
 @Slf4j
 @Service
-@Qualifier("noticeService")
 @RequiredArgsConstructor
-public class NoticeServiceImpl implements BoardService {
+public class NoticeServiceImpl implements NoticeService {
 
     private final BaseRepository baseRepository;
     private final NoticeRepository noticeRepository;
@@ -30,7 +27,7 @@ public class NoticeServiceImpl implements BoardService {
     //공지게시판 등록
     @Override
     @Transactional
-    public void postArticle(BoardDTO boardDto) {
+    public void postNoticeArticle(BoardDTO boardDto) {
 
         //base_board insert
         baseRepository.postBaseBoard(boardDto);
@@ -42,7 +39,7 @@ public class NoticeServiceImpl implements BoardService {
     //공지게시판 조회
     @Override
     @Transactional(readOnly = true)
-    public List<BoardDTO> getArticleList() {
+    public List<BoardDTO> getNoticeArticleList() {
 
         return noticeRepository.getNoticeArticle();
     }
@@ -50,7 +47,7 @@ public class NoticeServiceImpl implements BoardService {
     //공지게시판 상세조회
     @Override
     @Transactional(readOnly = true)
-    public BoardDTO readArticle(Long boardNo) {
+    public BoardDTO readNoticeArticle(Long boardNo) {
 
         //boardView +1
         baseRepository.updateBoardView(boardNo);
@@ -59,7 +56,7 @@ public class NoticeServiceImpl implements BoardService {
 
     //공지게시글 수정
     @Override
-    public void updateArticle(BoardDTO boardDTO) {
+    public void updateNoticeArticle(BoardDTO boardDTO) {
 
         //update table : board_notice
         noticeRepository.updateNoticeArticle(boardDTO);
@@ -70,7 +67,7 @@ public class NoticeServiceImpl implements BoardService {
 
     //공지게시글 삭제
     @Override
-    public void deleteArticle(Long boardNo) {
+    public void deleteNoticeArticle(Long boardNo) {
 
         baseRepository.deleteBaseBoard(boardNo);
     }

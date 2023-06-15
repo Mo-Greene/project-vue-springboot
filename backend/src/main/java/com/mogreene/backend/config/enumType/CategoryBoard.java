@@ -9,5 +9,5 @@ package com.mogreene.backend.config.enumType;
 public enum CategoryBoard {
     FREE,
     NOTICE,
-    ATTACHED
+    ATTACHMENT
 }
