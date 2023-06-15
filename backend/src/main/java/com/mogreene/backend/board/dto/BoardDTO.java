@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @name : BoardDTO
@@ -44,4 +45,6 @@ public class BoardDTO {
     //카테고리 분류
     private CategoryBoard categoryBoard;
 
+    //파일 리스트
+    private List<FileDTO> fileList;
 }

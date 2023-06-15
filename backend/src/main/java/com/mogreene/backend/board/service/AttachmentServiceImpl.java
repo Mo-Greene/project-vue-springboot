@@ -59,4 +59,29 @@ public class AttachmentServiceImpl implements AttachmentService {
             fileRepository.persistentFile(fileDTO);
         }
     }
+
+    //자료실 조회
+    @Override
+    @Transactional(readOnly = true)
+    public List<BoardDTO> getAttachmentArticleList() {
+
+        return attachmentRepository.getAttachmentArticle();
+    }
+
+    //자료실 상세조회
+    @Override
+    public BoardDTO readAttachmentArticle(Long boardNo) {
+
+        BoardDTO boardDTO = attachmentRepository.readAttachment(boardNo);
+        boardDTO.setFileList(fileRepository.getFileList(boardNo));
+
+        return boardDTO;
+    }
+
+    //게시글 삭제
+    @Override
+    public void deleteAttachmentArticle(Long boardNo) {
+
+        baseRepository.deleteBaseBoard(boardNo);
+    }
 }

@@ -21,13 +21,13 @@
     <!--자료실 조회-->
     <select id="getAttachmentArticle" resultType="BoardDto">
         SELECT
-            ba.board_no,
-            ba.attachment_title,
-            ba.attachment_writer,
-            bb.board_reg_date,
-            bb.board_mod_date,
-            bb.board_view,
-            bb.category_board
+            ba.board_no AS boardNo,
+            ba.attachment_title AS boardTitle,
+            ba.attachment_writer AS boardWriter,
+            bb.board_reg_date AS boardRegDate,
+            bb.board_mod_date AS boardModDate,
+            bb.board_view AS boardView,
+            bb.category_board AS categoryBoard
 
         FROM board_attachment ba
         LEFT JOIN base_board bb
@@ -43,14 +43,14 @@
     <!--자료실 상세조회-->
     <select id="readAttachment" resultType="BoardDto" parameterType="Long">
         SELECT
-            ba.board_no,
-            ba.attachment_title,
-            ba.attachment_writer,
-            ba.attachment_content,
-            bb.board_reg_date,
-            bb.board_mod_date,
-            bb.board_view,
-            bb.category_board
+            ba.board_no AS boardNo,
+            ba.attachment_title AS boardTitle,
+            ba.attachment_writer AS boardWriter,
+            ba.attachment_content AS boardContent,
+            bb.board_reg_date AS boardRegDate,
+            bb.board_mod_date AS boardModDate,
+            bb.board_view AS boardView,
+            bb.category_board AS categoryBoard
 
         FROM board_attachment ba
         LEFT JOIN base_board bb

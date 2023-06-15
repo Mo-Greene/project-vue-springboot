@@ -44,4 +44,43 @@ public class AttachmentController {
                 .build();
         return new ResponseEntity<>(apiResponseDTO, HttpStatus.CREATED);
     }
+
+    /**
+     * 자료실 조회
+     * @return
+     */
+    @GetMapping("")
+    public ResponseEntity<ApiResponseDTO<?>> getAttachmentArticle() {
+
+        ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()
+                .httpStatus(HttpStatus.OK)
+                .data(attachmentService.getAttachmentArticleList())
+                .build();
+
+        return new ResponseEntity<>(apiResponseDTO, HttpStatus.OK);
+    }
+
+    /**
+     * 자료실 상세조회
+     * @param boardNo
+     * @return
+     */
+    @GetMapping("/{boardNo}")
+    public ResponseEntity<ApiResponseDTO<?>> readAttachmentArticle(@PathVariable Long boardNo) {
+
+        ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()
+                .httpStatus(HttpStatus.OK)
+                .data(attachmentService.readAttachmentArticle(boardNo))
+                .build();
+
+        return new ResponseEntity<>(apiResponseDTO, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{boardNo}")
+    public ResponseEntity<ApiResponseDTO<?>> deleteAttachmentArticle(@PathVariable Long boardNo) {
+
+        attachmentService.deleteAttachmentArticle(boardNo);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

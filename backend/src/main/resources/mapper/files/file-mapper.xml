@@ -18,4 +18,22 @@
                #{filePath},
                #{boardNo})
     </insert>
+
+    <!--첨부파일 조회-->
+    <select id="getFileList" resultType="fileDto" parameterType="Long">
+        SELECT
+            board_no,
+            file_no,
+            file_name,
+            file_original_name,
+            file_path,
+            file_reg_date
+
+        FROM
+            attached_file
+
+        WHERE
+            board_no = #{boardNo}
+        ;
+    </select>
 </mapper>

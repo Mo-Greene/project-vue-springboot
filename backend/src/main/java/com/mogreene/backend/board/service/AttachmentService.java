@@ -17,4 +17,12 @@ public interface AttachmentService {
     //자료실 등록 + 첨부파일
     void postAttachment(BoardDTO boardDTO, List<MultipartFile> files) throws IOException;
 
+    //자료실 조회
+    List<BoardDTO> getAttachmentArticleList();
+
+    //자료실 상세조회
+    BoardDTO readAttachmentArticle(Long boardNo);
+
+    //게시글 삭제
+    void deleteAttachmentArticle(Long boardNo);
 }
