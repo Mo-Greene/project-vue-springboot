@@ -1,10 +1,11 @@
 package com.mogreene.backend.board.controller;
 
 import com.mogreene.backend.board.dto.BoardDTO;
-import com.mogreene.backend.board.service.FreeService;
+import com.mogreene.backend.board.service.BoardService;
 import com.mogreene.backend.config.responseApi.ApiResponseDTO;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,10 +19,14 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequestMapping("/free")
-@RequiredArgsConstructor
 public class FreeController {
 
-    private final FreeService freeService;
+    private final BoardService freeService;
+
+    @Autowired
+    public FreeController(@Qualifier("freeService") BoardService boardService) {
+        this.freeService = boardService;
+    }
 
 
     /**
@@ -32,7 +37,7 @@ public class FreeController {
     @PostMapping("")
     public ResponseEntity<ApiResponseDTO<?>> postFreeArticle(@RequestBody BoardDTO boardDto) {
 
-        freeService.postFreeArticle(boardDto);
+        freeService.postArticle(boardDto);
 
         ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()
                 .httpStatus(HttpStatus.CREATED)
@@ -50,7 +55,7 @@ public class FreeController {
 
         ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()
                 .httpStatus(HttpStatus.OK)
-                .data(freeService.getFreeArticleList())
+                .data(freeService.getArticleList())
                 .build();
 
         return new ResponseEntity<>(apiResponseDTO, HttpStatus.OK);
@@ -66,7 +71,7 @@ public class FreeController {
 
         ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()
                 .httpStatus(HttpStatus.OK)
-                .data(freeService.readFreeArticle(boardNo))
+                .data(freeService.readArticle(boardNo))
                 .build();
 
         return new ResponseEntity<>(apiResponseDTO, HttpStatus.OK);
@@ -82,7 +87,7 @@ public class FreeController {
                                                                @RequestBody BoardDTO boardDTO) {
 
         boardDTO.setBoardNo(boardNo);
-        freeService.updateFreeArticle(boardDTO);
+        freeService.updateArticle(boardDTO);
 
         ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()
                 .httpStatus(HttpStatus.OK)
@@ -100,7 +105,7 @@ public class FreeController {
     @DeleteMapping("/delete/{boardNo}")
     public ResponseEntity<ApiResponseDTO<?>> deleteFreeArticle(@PathVariable Long boardNo) {
 
-        freeService.deleteFreeArticle(boardNo);
+        freeService.deleteArticle(boardNo);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
