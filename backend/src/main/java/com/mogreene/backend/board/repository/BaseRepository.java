@@ -20,4 +20,7 @@ public interface BaseRepository {
 
     //게시글 삭제
     void deleteBaseBoard(Long boardNo);
+
+    //게시글 조회수 증가
+    void updateBoardView(Long boardNo);
 }

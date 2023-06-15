@@ -10,7 +10,7 @@
                 board_content,
                 board_writer,
                 board_no
-        )
+            )
 
         VALUES
             (#{boardTitle},
@@ -37,6 +37,8 @@
 
         ORDER BY
             bf.board_no DESC
+
+        LIMIT 0, 10
         ;
     </select>
 

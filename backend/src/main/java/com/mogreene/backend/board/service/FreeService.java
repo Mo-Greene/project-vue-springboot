@@ -13,10 +13,10 @@ import java.util.List;
 public interface FreeService {
 
     //자유게시판 등록
-    void postArticle(BoardDTO boardDto);
+    void postFreeArticle(BoardDTO boardDto);
 
     //자유게시판 조회
-    List<BoardDTO> getFreeArticle();
+    List<BoardDTO> getFreeArticleList();
 
     //자유게시글 상세조회
     BoardDTO readFreeArticle(Long boardNo);

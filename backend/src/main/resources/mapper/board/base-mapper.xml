@@ -36,4 +36,17 @@
             board_no = #{boardNo}
         ;
     </delete>
+
+    <!--게시글 조회수 증가-->
+    <update id="updateBoardView" parameterType="Long">
+        UPDATE
+            base_board
+
+        SET
+            board_view = board_view + 1
+
+        WHERE
+            board_no = #{boardNo}
+        ;
+    </update>
 </mapper>

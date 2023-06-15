@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * @name : FreeServiceImpl
+ * @name : BoardServiceImpl
  * @author : Mo-Greene
  * @date : 2023/06/14
  * 자유게시판 인터페이스 구현
@@ -27,22 +27,30 @@ public class FreeServiceImpl implements FreeService {
     //자유게시판 등록
     @Override
     @Transactional
-    public void postArticle(BoardDTO boardDTO) {
+    public void postFreeArticle(BoardDTO boardDTO) {
 
+        //base_board insert
         baseRepository.postBaseBoard(boardDTO);
+
+        //board_free insert
         freeRepository.postFreeArticle(boardDTO);
     }
 
     //자유게시판 조회
     @Override
-    public List<BoardDTO> getFreeArticle() {
+    @Transactional(readOnly = true)
+    public List<BoardDTO> getFreeArticleList() {
 
         return freeRepository.getFreeArticle();
     }
 
     //자유게시글 상세조회
     @Override
+    @Transactional(readOnly = true)
     public BoardDTO readFreeArticle(Long boardNo) {
+
+        //조회수 증가
+        baseRepository.updateBoardView(boardNo);
 
         return freeRepository.readFreeArticle(boardNo);
     }

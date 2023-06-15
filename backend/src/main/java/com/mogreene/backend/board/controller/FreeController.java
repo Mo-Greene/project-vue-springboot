@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Slf4j
 @RestController
+@RequestMapping("/free")
 @RequiredArgsConstructor
 public class FreeController {
 
@@ -28,10 +29,10 @@ public class FreeController {
      * @param boardDto
      * @return
      */
-    @PostMapping("/free")
+    @PostMapping("")
     public ResponseEntity<ApiResponseDTO<?>> postFreeArticle(@RequestBody BoardDTO boardDto) {
 
-        freeService.postArticle(boardDto);
+        freeService.postFreeArticle(boardDto);
 
         ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()
                 .httpStatus(HttpStatus.CREATED)
@@ -44,12 +45,12 @@ public class FreeController {
      * 자유게시판 조회
      * @return
      */
-    @GetMapping("/free")
+    @GetMapping("")
     public ResponseEntity<ApiResponseDTO<?>> getFreeArticle() {
 
         ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()
                 .httpStatus(HttpStatus.OK)
-                .data(freeService.getFreeArticle())
+                .data(freeService.getFreeArticleList())
                 .build();
 
         return new ResponseEntity<>(apiResponseDTO, HttpStatus.OK);
@@ -60,7 +61,7 @@ public class FreeController {
      * @param boardNo
      * @return
      */
-    @GetMapping("/free/{boardNo}")
+    @GetMapping("/{boardNo}")
     public ResponseEntity<ApiResponseDTO<?>> readFreeArticle(@PathVariable Long boardNo) {
 
         ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()
@@ -76,7 +77,7 @@ public class FreeController {
      * @param boardDTO
      * @return
      */
-    @PutMapping("/free/modify/{boardNo}")
+    @PutMapping("/modify/{boardNo}")
     public ResponseEntity<ApiResponseDTO<?>> updateFreeArticle(@PathVariable Long boardNo,
                                                                @RequestBody BoardDTO boardDTO) {
 
@@ -96,7 +97,7 @@ public class FreeController {
      * @param boardNo
      * @return
      */
-    @DeleteMapping("/free/delete/{boardNo}")
+    @DeleteMapping("/delete/{boardNo}")
     public ResponseEntity<ApiResponseDTO<?>> deleteFreeArticle(@PathVariable Long boardNo) {
 
         freeService.deleteFreeArticle(boardNo);
