@@ -36,4 +36,17 @@
             board_no = #{boardNo}
         ;
     </select>
+
+    <!--단일 첨부파일 조회-->
+    <select id="getSingleFile" parameterType="Long" resultType="fileDto">
+        SELECT
+            *
+
+        FROM
+            attached_file
+
+        WHERE
+            file_no = #{fileNo}
+        ;
+    </select>
 </mapper>

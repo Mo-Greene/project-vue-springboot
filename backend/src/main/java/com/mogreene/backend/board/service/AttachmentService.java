@@ -1,9 +1,11 @@
 package com.mogreene.backend.board.service;
 
 import com.mogreene.backend.board.dto.BoardDTO;
+import com.mogreene.backend.board.dto.FileDTO;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.List;
 
 /**
@@ -25,4 +27,7 @@ public interface AttachmentService {
 
     //게시글 삭제
     void deleteAttachmentArticle(Long boardNo);
+
+    //첨부파일 다운로드
+    FileDTO downloadFile(Long fileNo) throws MalformedURLException;
 }

@@ -25,7 +25,7 @@ public class FileUtils {
     private String uploadPath;
 
     //첨부파일 등록
-    public FileDTO saveAttachment(BoardDTO boardDTO, MultipartFile file) throws IOException {
+    public FileDTO saveAttachment(BoardDTO boardDTO, MultipartFile file) {
 
         String fileOriginalName = file.getOriginalFilename();
 

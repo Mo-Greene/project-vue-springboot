@@ -19,4 +19,7 @@ public interface FileRepository {
 
     //파일 조회
     List<FileDTO> getFileList(Long boardNo);
+
+    //단일 첨부파일 조회
+    FileDTO getSingleFile(Long fileNo);
 }
