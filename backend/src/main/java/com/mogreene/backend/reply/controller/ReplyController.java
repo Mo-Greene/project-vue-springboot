@@ -47,7 +47,6 @@ public class ReplyController {
     /**
      * 대댓글 post
      * @param boardNo
-     * @param replyNo
      * @param replyDTO
      * @return
      */
