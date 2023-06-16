@@ -1,4 +1,4 @@
-package com.mogreene.backend.board.repository.board;
+package com.mogreene.backend.board.repository;
 
 import com.mogreene.backend.board.dto.BoardDTO;
 import org.apache.ibatis.annotations.Mapper;

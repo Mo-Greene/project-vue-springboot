@@ -1,8 +1,8 @@
 package com.mogreene.backend.board.service;
 
 import com.mogreene.backend.board.dto.BoardDTO;
-import com.mogreene.backend.board.repository.board.BaseRepository;
-import com.mogreene.backend.board.repository.board.FreeRepository;
+import com.mogreene.backend.board.repository.BaseRepository;
+import com.mogreene.backend.board.repository.FreeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

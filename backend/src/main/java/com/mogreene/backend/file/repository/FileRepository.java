@@ -1,6 +1,6 @@
-package com.mogreene.backend.board.repository.file;
+package com.mogreene.backend.file.repository;
 
-import com.mogreene.backend.board.dto.FileDTO;
+import com.mogreene.backend.file.dto.FileDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -22,4 +22,7 @@ public interface FileRepository {
 
     //단일 첨부파일 조회
     FileDTO getSingleFile(Long fileNo);
+
+    //첨부파일 삭제
+    void deleteFile(Long fileNo);
 }

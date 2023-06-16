@@ -1,7 +1,7 @@
-package com.mogreene.backend.board.service.utils;
+package com.mogreene.backend.file.service.utils;
 
 import com.mogreene.backend.board.dto.BoardDTO;
-import com.mogreene.backend.board.dto.FileDTO;
+import com.mogreene.backend.file.dto.FileDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;

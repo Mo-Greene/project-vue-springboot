@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mogreene.backend.board.repository.file.FileRepository">
+<mapper namespace="com.mogreene.backend.file.repository.FileRepository">
 
     <!--첨부파일 등록-->
     <insert id="persistentFile" parameterType="fileDTO">
@@ -49,4 +49,14 @@
             file_no = #{fileNo}
         ;
     </select>
+
+    <!--파일 삭제-->
+    <delete id="deleteFile">
+        DELETE FROM
+            attached_file
+
+        WHERE
+            file_no = #{fileNo}
+        ;
+    </delete>
 </mapper>

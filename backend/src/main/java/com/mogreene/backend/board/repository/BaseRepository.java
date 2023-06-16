@@ -1,4 +1,4 @@
-package com.mogreene.backend.board.repository.board;
+package com.mogreene.backend.board.repository;
 
 import com.mogreene.backend.board.dto.BoardDTO;
 import org.apache.ibatis.annotations.Mapper;
@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @name : BaseRepository
  * @author : Mo-Greene
  * @date : 2023/06/14
- * 부모 게시판
+ * 부모게시판 repository
  */
 @Mapper
 public interface BaseRepository {

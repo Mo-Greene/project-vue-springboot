@@ -5,6 +5,7 @@ import com.mogreene.backend.reply.repository.ReplyRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class ReplyServiceImpl implements ReplyService{
 
     //댓글 목록
     @Override
+    @Transactional(readOnly = true)
     public List<ReplyDTO> getReplyList(Long boardNo) {
 
         return replyRepository.getReplyList(boardNo);
