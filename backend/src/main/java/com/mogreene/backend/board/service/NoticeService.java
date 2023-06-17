@@ -1,6 +1,8 @@
 package com.mogreene.backend.board.service;
 
 import com.mogreene.backend.board.dto.BoardDTO;
+import com.mogreene.backend.board.dto.page.PageRequestDTO;
+import com.mogreene.backend.board.dto.page.PageResponseDTO;
 
 import java.util.List;
 
@@ -16,7 +18,10 @@ public interface NoticeService {
     void postNoticeArticle(BoardDTO boardDto);
 
     //게시판 조회
-    List<BoardDTO> getNoticeArticleList();
+    List<BoardDTO> getNoticeArticleList(PageRequestDTO pageRequestDTO);
+
+    //페이지네이션 객체
+    PageResponseDTO pagination(PageRequestDTO pageRequestDTO);
 
     //게시글 상세조회
     BoardDTO readNoticeArticle(Long boardNo);

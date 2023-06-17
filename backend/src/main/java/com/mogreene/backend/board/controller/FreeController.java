@@ -1,13 +1,22 @@
 package com.mogreene.backend.board.controller;
 
 import com.mogreene.backend.board.dto.BoardDTO;
+import com.mogreene.backend.board.dto.page.PageRequestDTO;
+import com.mogreene.backend.board.dto.page.PageResponseDTO;
 import com.mogreene.backend.board.service.FreeService;
 import com.mogreene.backend.config.responseApi.ApiResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * @name : FreeController
@@ -45,13 +54,19 @@ public class FreeController {
      * @return
      */
     @GetMapping("")
-    public ResponseEntity<ApiResponseDTO<?>> getFreeArticle() {
+    public ResponseEntity<ApiResponseDTO<?>> getFreeArticle(@Valid PageRequestDTO pageRequestDTO,
+                                                            BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            pageRequestDTO = PageRequestDTO.builder().build();
+        }
+
+        List<BoardDTO> freeList = freeService.getFreeArticleList(pageRequestDTO);
 
         ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()
                 .httpStatus(HttpStatus.OK)
-                .data(freeService.getFreeArticleList())
+                .data(freeList)
                 .build();
-
         return new ResponseEntity<>(apiResponseDTO, HttpStatus.OK);
     }
 

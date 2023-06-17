@@ -1,15 +1,18 @@
 package com.mogreene.backend.board.controller;
 
 import com.mogreene.backend.board.dto.BoardDTO;
+import com.mogreene.backend.board.dto.page.PageRequestDTO;
 import com.mogreene.backend.board.service.AttachmentService;
 import com.mogreene.backend.config.responseApi.ApiResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
@@ -50,11 +53,18 @@ public class AttachmentController {
      * @return
      */
     @GetMapping("")
-    public ResponseEntity<ApiResponseDTO<?>> getAttachmentArticle() {
+    public ResponseEntity<ApiResponseDTO<?>> getAttachmentArticle(@Valid PageRequestDTO pageRequestDTO,
+                                                                  BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            pageRequestDTO = PageRequestDTO.builder().build();
+        }
+
+        List<BoardDTO> attachmentList = attachmentService.getAttachmentArticleList(pageRequestDTO);
 
         ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()
                 .httpStatus(HttpStatus.OK)
-                .data(attachmentService.getAttachmentArticleList())
+                .data(attachmentList)
                 .build();
 
         return new ResponseEntity<>(apiResponseDTO, HttpStatus.OK);

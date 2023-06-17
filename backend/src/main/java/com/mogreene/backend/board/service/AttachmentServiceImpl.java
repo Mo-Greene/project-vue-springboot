@@ -1,6 +1,8 @@
 package com.mogreene.backend.board.service;
 
 import com.mogreene.backend.board.dto.BoardDTO;
+import com.mogreene.backend.board.dto.page.PageRequestDTO;
+import com.mogreene.backend.board.dto.page.PageResponseDTO;
 import com.mogreene.backend.board.repository.AttachmentRepository;
 import com.mogreene.backend.board.repository.BaseRepository;
 import com.mogreene.backend.file.dto.FileDTO;
@@ -63,9 +65,22 @@ public class AttachmentServiceImpl implements AttachmentService {
     //자료실 조회
     @Override
     @Transactional(readOnly = true)
-    public List<BoardDTO> getAttachmentArticleList() {
+    public List<BoardDTO> getAttachmentArticleList(PageRequestDTO pageRequestDTO) {
 
-        return attachmentRepository.getAttachmentArticle();
+        return attachmentRepository.getAttachmentArticle(pageRequestDTO);
+    }
+
+    //자료실 페이지네이션
+    @Override
+    @Transactional(readOnly = true)
+    public PageResponseDTO pagination(PageRequestDTO pageRequestDTO) {
+
+        int total = attachmentRepository.totalAttachmentCount(pageRequestDTO);
+
+        return PageResponseDTO.pagination()
+                .pageRequestDTO(pageRequestDTO)
+                .total(total)
+                .build();
     }
 
     //자료실 상세조회

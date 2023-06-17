@@ -1,6 +1,7 @@
 package com.mogreene.backend.board.repository;
 
 import com.mogreene.backend.board.dto.BoardDTO;
+import com.mogreene.backend.board.dto.page.PageRequestDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -18,7 +19,10 @@ public interface FreeRepository {
     void postFreeArticle(BoardDTO boardDto);
 
     //자유게시판 조회
-    List<BoardDTO> getFreeArticle();
+    List<BoardDTO> getFreeArticle(PageRequestDTO pageRequestDTO);
+
+    //게시글 갯수
+    int totalFreeCount(PageRequestDTO pageRequestDTO);
 
     //자유게시글 상세조회
     BoardDTO readFreeArticle(Long boardNo);

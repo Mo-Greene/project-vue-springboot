@@ -1,6 +1,8 @@
 package com.mogreene.backend.board.service;
 
 import com.mogreene.backend.board.dto.BoardDTO;
+import com.mogreene.backend.board.dto.page.PageRequestDTO;
+import com.mogreene.backend.board.dto.page.PageResponseDTO;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -18,7 +20,10 @@ public interface AttachmentService {
     void postAttachment(BoardDTO boardDTO, List<MultipartFile> files) throws IOException;
 
     //자료실 조회
-    List<BoardDTO> getAttachmentArticleList();
+    List<BoardDTO> getAttachmentArticleList(PageRequestDTO pageRequestDTO);
+
+    //페이지네이션
+    PageResponseDTO pagination(PageRequestDTO pageRequestDTO);
 
     //자료실 상세조회
     BoardDTO readAttachmentArticle(Long boardNo);

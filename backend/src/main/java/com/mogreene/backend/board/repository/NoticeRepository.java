@@ -1,6 +1,7 @@
 package com.mogreene.backend.board.repository;
 
 import com.mogreene.backend.board.dto.BoardDTO;
+import com.mogreene.backend.board.dto.page.PageRequestDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -18,7 +19,10 @@ public interface NoticeRepository {
     void postNoticeArticle(BoardDTO boardDTO);
 
     //공지게시판 조회
-    List<BoardDTO> getNoticeArticle();
+    List<BoardDTO> getNoticeArticle(PageRequestDTO pageRequestDTO);
+
+    //게시글 갯수
+    int totalNoticeCount(PageRequestDTO pageRequestDTO);
 
     //공지게시글 상세조회
     BoardDTO readNoticeArticle(Long boardNo);

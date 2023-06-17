@@ -2,23 +2,39 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mogreene.backend.board.repository.NoticeRepository">
 
-    <!--공지게시판 등록-->
-    <insert id="postNoticeArticle" parameterType="BoardDto">
-        INSERT INTO
-            board_notice(
-                board_no,
-                notice_title,
-                notice_content,
-                notice_writer
-            )
+    <!--동적조회쿼리-->
+    <sql id="search">
+        <where>
+            <if test="keyword != null and keyword.length > 0">
+                bn.notice_title LIKE CONCAT('%', #{keyword}, '%')
+                OR bn.notice_content LIKE CONCAT('%', #{keyword}, '%')
+                OR bn.notice_writer LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+            <if test="categoryBoard != null and categoryBoard.length > 0">
+                <trim prefix="and">
+                    bb.category_board LIKE #{categoryBoard}
+                </trim>
+            </if>
+            <if test="startDate != null and endDate != null">
+                <trim prefix="and">
+                    bb.board_reg_date BETWEEN date(#{startDate}) AND date(#{endDate})
+                </trim>
+            </if>
+        </where>
+    </sql>
 
-        VALUES
-            (#{boardNo},
-             #{boardTitle},
-             #{boardContent},
-             #{boardWriter})
+    <!--게시글 개수-->
+    <select id="totalNoticeCount" resultType="int">
+        SELECT
+        COUNT(bn.board_no)
+
+        FROM board_notice bn
+        LEFT JOIN base_board bb
+        ON bb.board_no = bn.board_no
+
+        <include refid="search"/>
         ;
-    </insert>
+    </select>
 
     <!--공지게시판 조회-->
     <select id="getNoticeArticle" resultType="BoardDto">
@@ -35,10 +51,12 @@
         LEFT JOIN base_board bb
             ON bn.board_no = bb.board_no
 
+        <include refid="search"/>
+
         ORDER BY
             bn.board_no DESC
 
-        LIMIT 0, 10
+        LIMIT #{skip}, #{size}
         ;
     </select>
 
@@ -62,6 +80,24 @@
             bn.board_no = #{boardNo}
         ;
     </select>
+
+    <!--공지게시판 등록-->
+    <insert id="postNoticeArticle" parameterType="BoardDto">
+        INSERT INTO
+            board_notice(
+            board_no,
+            notice_title,
+            notice_content,
+            notice_writer
+        )
+
+        VALUES
+            (#{boardNo},
+             #{boardTitle},
+             #{boardContent},
+             #{boardWriter})
+        ;
+    </insert>
 
     <!--게시글 수정-->
     <update id="updateNoticeArticle" parameterType="BoardDto">

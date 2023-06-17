@@ -1,7 +1,10 @@
 package com.mogreene.backend.board.repository;
 
 import com.mogreene.backend.board.dto.BoardDTO;
+import com.mogreene.backend.board.dto.page.PageRequestDTO;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * @name : BaseRepository
@@ -11,6 +14,9 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface BaseRepository {
+
+    //게시글 개수
+    int totalCount(PageRequestDTO pageRequestDTO);
 
     //게시판 등록
     void postBaseBoard(BoardDTO boardDTO);

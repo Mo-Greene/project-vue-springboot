@@ -1,6 +1,8 @@
 package com.mogreene.backend.board.service;
 
 import com.mogreene.backend.board.dto.BoardDTO;
+import com.mogreene.backend.board.dto.page.PageRequestDTO;
+import com.mogreene.backend.board.dto.page.PageResponseDTO;
 
 import java.util.List;
 
@@ -12,11 +14,14 @@ import java.util.List;
  */
 public interface FreeService {
 
+    //페이지네이션
+    PageResponseDTO pagination(PageRequestDTO pageRequestDTO);
+
     //게시판 등록
     void postFreeArticle(BoardDTO boardDto);
 
     //게시판 조회
-    List<BoardDTO> getFreeArticleList();
+    List<BoardDTO> getFreeArticleList(PageRequestDTO pageRequestDTO);
 
     //게시글 상세조회
     BoardDTO readFreeArticle(Long boardNo);

@@ -1,6 +1,8 @@
 package com.mogreene.backend.board.service;
 
 import com.mogreene.backend.board.dto.BoardDTO;
+import com.mogreene.backend.board.dto.page.PageRequestDTO;
+import com.mogreene.backend.board.dto.page.PageResponseDTO;
 import com.mogreene.backend.board.repository.BaseRepository;
 import com.mogreene.backend.board.repository.NoticeRepository;
 import lombok.RequiredArgsConstructor;
@@ -39,9 +41,21 @@ public class NoticeServiceImpl implements NoticeService {
     //공지게시판 조회
     @Override
     @Transactional(readOnly = true)
-    public List<BoardDTO> getNoticeArticleList() {
+    public List<BoardDTO> getNoticeArticleList(PageRequestDTO pageRequestDTO) {
 
-        return noticeRepository.getNoticeArticle();
+        return noticeRepository.getNoticeArticle(pageRequestDTO);
+    }
+
+    //공지게시판 페이지네이션
+    @Override
+    public PageResponseDTO pagination(PageRequestDTO pageRequestDTO) {
+
+        int total = noticeRepository.totalNoticeCount(pageRequestDTO);
+
+        return PageResponseDTO.pagination()
+                .pageRequestDTO(pageRequestDTO)
+                .total(total)
+                .build();
     }
 
     //공지게시판 상세조회

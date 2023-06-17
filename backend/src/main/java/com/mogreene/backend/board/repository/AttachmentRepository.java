@@ -1,6 +1,7 @@
 package com.mogreene.backend.board.repository;
 
 import com.mogreene.backend.board.dto.BoardDTO;
+import com.mogreene.backend.board.dto.page.PageRequestDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -18,7 +19,10 @@ public interface AttachmentRepository {
     void postAttachmentArticle(BoardDTO boardDTO);
 
     //자료실 조회
-    List<BoardDTO> getAttachmentArticle();
+    List<BoardDTO> getAttachmentArticle(PageRequestDTO pageRequestDTO);
+
+    //자료실 갯수
+    int totalAttachmentCount(PageRequestDTO pageRequestDTO);
 
     //자료실 상세조회
     BoardDTO readAttachment(Long boardNo);

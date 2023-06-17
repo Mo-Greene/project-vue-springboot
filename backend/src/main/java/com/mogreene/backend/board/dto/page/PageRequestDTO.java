@@ -1,12 +1,15 @@
 package com.mogreene.backend.board.dto.page;
 
+import com.mogreene.backend.config.enumType.CategoryBoard;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
+import java.time.LocalDate;
 
 /**
  * @name : PageRequestDTO
@@ -37,4 +40,18 @@ public class PageRequestDTO {
         return (page - 1) * 10;
     }
 
+    /* 검색조건 */
+    //날짜 시작
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate startDate;
+
+    //날짜 종료
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate endDate;
+
+    //카테고리 검색
+    private CategoryBoard categoryBoard;
+
+    //검색어
+    private String keyword;
 }
