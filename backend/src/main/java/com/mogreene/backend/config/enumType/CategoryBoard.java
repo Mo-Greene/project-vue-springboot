@@ -7,7 +7,17 @@ package com.mogreene.backend.config.enumType;
  * 카테고리 분류 enum
  */
 public enum CategoryBoard {
-    FREE,
-    NOTICE,
-    ATTACHMENT
+    FREE("자유"),
+    NOTICE("공지"),
+    ATTACHMENT("자료실");
+
+    private final String name;
+
+    CategoryBoard(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
+    }
 }
