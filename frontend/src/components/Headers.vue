@@ -1,6 +1,6 @@
 <template>
     <v-card>
-        <v-layout>
+        <v-layout style="height: 0;">
             <v-navigation-drawer
                     v-model="drawer"
                     :rail="rail"
@@ -24,9 +24,14 @@
                 <v-divider></v-divider>
 
                 <v-list density="compact" nav>
-                    <v-list-item prepend-icon="mdi-home-city" title="Home" value="home"></v-list-item>
-                    <v-list-item prepend-icon="mdi-account" title="My Account" value="account"></v-list-item>
-                    <v-list-item prepend-icon="mdi-account-group-outline" title="Users" value="users"></v-list-item>
+                    <v-list-item
+                        v-for="item in items"
+                        :key="item.title"
+                        :prepend-icon="item.icon"
+                        :title="item.title"
+                        :value="item.value"
+                        :to="item.to"
+                    ></v-list-item>
                 </v-list>
             </v-navigation-drawer>
             <v-main style="height: 250px"></v-main>
@@ -40,12 +45,20 @@ import { ref } from 'vue';
 export default {
     name: Headers,
     setup() {
+
         const drawer = ref(true);
         const rail = ref(true);
 
+        const items = [
+            {icon: 'mdi-head-snowflake-outline', title: 'Free', value: 'Free', to: 'free'},
+            {icon: 'mdi-bulletin-board', title: 'Notice', value: 'Notice', to: 'notice'},
+            {icon: 'mdi-content-save-outline', title: 'Attachment', value: 'Attachment', to: 'attachment'}
+        ];
+
         return {
             drawer,
-            rail
+            rail,
+            items
         }
     }
 }

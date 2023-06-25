@@ -2,7 +2,6 @@ package com.mogreene.backend.board.controller;
 
 import com.mogreene.backend.board.dto.BoardDTO;
 import com.mogreene.backend.board.dto.page.PageRequestDTO;
-import com.mogreene.backend.board.dto.page.PageResponseDTO;
 import com.mogreene.backend.board.service.NoticeService;
 import com.mogreene.backend.config.responseApi.ApiResponseDTO;
 import lombok.RequiredArgsConstructor;
@@ -13,9 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @name : NoticeController
