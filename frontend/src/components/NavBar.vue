@@ -20,7 +20,7 @@
                     :prepend-icon="item.icon"
                     :title="item.title"
                     :value="item.value"
-                    :to="item.to"
+                    :to="item.link"
             ></v-list-item>
         </v-list>
     </v-navigation-drawer>
@@ -36,9 +36,9 @@ export default {
         const drawer = ref(true);
 
         const items = [
-            {icon: 'mdi-head-snowflake-outline', title: 'Free', value: 'Free', to: 'free'},
-            {icon: 'mdi-bulletin-board', title: 'Notice', value: 'Notice', to: 'notice'},
-            {icon: 'mdi-content-save-outline', title: 'Attachment', value: 'Attachment', to: 'attachment'}
+            {icon: 'mdi-head-snowflake-outline', title: 'Free', value: 'Free', link: 'free'},
+            {icon: 'mdi-bulletin-board', title: 'Notice', value: 'Notice', link: 'notice'},
+            {icon: 'mdi-content-save-outline', title: 'Attachment', value: 'Attachment', link: 'attachment'}
         ];
 
         return {

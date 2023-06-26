@@ -1,11 +1,17 @@
 <template>
-    <BoardTable :boardList="boardList"/>
+    <v-card>
+        <v-card-title class="attachmentTitleColor">자료실</v-card-title>
+        <v-divider class="border-opacity-75"></v-divider>
+        <v-card>
+            <BoardTable :boardList="boardList"/>
+        </v-card>
+    </v-card>
 </template>
 
 <script>
 import {onMounted, ref} from "vue";
 import * as attachmentBoardApi from '@/api/boardAttachment'
-import BoardTable from "@/components/BoardTable.vue";
+import BoardTable from "@/components/board/BoardTable.vue";
 
 export default {
     name: "Attachment",
@@ -29,3 +35,9 @@ export default {
     },
 }
 </script>
+
+<style>
+.attachmentTitleColor {
+    background-color: darkgoldenrod
+}
+</style>

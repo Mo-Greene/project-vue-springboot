@@ -33,7 +33,11 @@
                     class="text-center"
             >
                 <td>{{ board.boardNo }}</td>
-                <td>{{ board.boardTitle }}</td>
+                <td>
+                    <a @click="$router.push('/' + parseCategory(board.categoryBoard) + '/' + board.boardNo)">
+                        {{ board.boardTitle }}
+                    </a>
+                </td>
                 <td>{{ board.boardWriter }}</td>
                 <td>{{ board.boardView }}</td>
                 <td>{{ formatDateTime(board.boardRegDate) }}</td>
@@ -72,8 +76,14 @@ export default {
             return number < 10 ? "0" + number : number;
         };
 
+        //카테고리 파싱
+        const parseCategory = (category) => {
+            return category.toLowerCase();
+        }
+
         return {
-            formatDateTime
+            formatDateTime,
+            parseCategory,
         }
     },
 }

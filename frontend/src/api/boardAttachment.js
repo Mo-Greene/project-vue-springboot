@@ -7,3 +7,12 @@ import http from "@/api/http";
 export async function getAttachmentList() {
     return http.get('/attachment')
 }
+
+/**
+ * 자료실 상세조회
+ * @param boardNo
+ * @returns {Promise<axios.AxiosResponse<any>>}
+ */
+export async function getAttachmentArticle(boardNo) {
+    return http.get('/attachment/' + boardNo)
+}

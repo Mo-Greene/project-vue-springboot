@@ -7,3 +7,12 @@ import http from "@/api/http";
 export async function getNoticeList() {
     return http.get('/notice')
 }
+
+/**
+ * 공지게시글 상세조회
+ * @param boardNo
+ * @returns {Promise<axios.AxiosResponse<any>>}
+ */
+export async function getNoticeArticle(boardNo) {
+    return http.get('/notice/' + boardNo)
+}

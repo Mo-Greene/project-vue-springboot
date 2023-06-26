@@ -1,11 +1,17 @@
 <template>
-    <BoardTable :boardList="boardList"/>
+    <v-card>
+        <v-card-title class="noticeTitleColor">공지게시판</v-card-title>
+        <v-divider class="border-opacity-75"></v-divider>
+        <v-card>
+            <BoardTable :boardList="boardList"/>
+        </v-card>
+    </v-card>
 </template>
 
 <script>
 import {onMounted, ref} from "vue";
 import * as noticeBoardApi from '@/api/boardNotice'
-import BoardTable from "@/components/BoardTable.vue";
+import BoardTable from "@/components/board/BoardTable.vue";
 
 export default {
     name: "Notice",
@@ -29,3 +35,9 @@ export default {
     },
 }
 </script>
+
+<style>
+.noticeTitleColor {
+    background-color: lightsteelblue
+}
+</style>

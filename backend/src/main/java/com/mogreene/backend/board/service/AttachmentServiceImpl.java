@@ -85,7 +85,11 @@ public class AttachmentServiceImpl implements AttachmentService {
 
     //자료실 상세조회
     @Override
+    @Transactional(readOnly = true)
     public BoardDTO readAttachmentArticle(Long boardNo) {
+
+        //게시글 조회수 증가
+        baseRepository.updateBoardView(boardNo);
 
         BoardDTO boardDTO = attachmentRepository.readAttachment(boardNo);
         boardDTO.setFileList(fileRepository.getFileList(boardNo));
