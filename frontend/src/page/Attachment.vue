@@ -1,17 +1,31 @@
 <template>
-    <v-container>
-        <h2>Attachment</h2>
-    </v-container>
+    <BoardTable :boardList="boardList"/>
 </template>
 
 <script>
-export default {
-    // eslint-disable-next-line vue/multi-word-component-names
-    name: "Attachment",
+import {onMounted, ref} from "vue";
+import * as attachmentBoardApi from '@/api/boardAttachment'
+import BoardTable from "@/components/BoardTable.vue";
 
+export default {
+    name: "Attachment",
+    components: {BoardTable},
+    setup() {
+        const boardList = ref([])
+
+        //자료실 get
+        const attachmentList = async () => {
+            const response = await attachmentBoardApi.getAttachmentList();
+            boardList.value = response.data.data
+        }
+
+        onMounted(() => {
+            attachmentList();
+        })
+
+        return {
+            boardList
+        }
+    },
 }
 </script>
-
-<style scoped>
-
-</style>

@@ -1,17 +1,31 @@
 <template>
-    <v-container style="padding-left: 30px;">
-        <h2>Notice</h2>
-    </v-container>
+    <BoardTable :boardList="boardList"/>
 </template>
 
 <script>
-export default {
-    // eslint-disable-next-line vue/multi-word-component-names
-    name: "Notice",
+import {onMounted, ref} from "vue";
+import * as noticeBoardApi from '@/api/boardNotice'
+import BoardTable from "@/components/BoardTable.vue";
 
+export default {
+    name: "Notice",
+    components: {BoardTable},
+    setup() {
+        const boardList = ref([])
+
+        //공지게시글 get
+        const noticeList = async () => {
+            const response = await noticeBoardApi.getNoticeList();
+            boardList.value = response.data.data
+        }
+
+        onMounted(() => {
+            noticeList();
+        })
+
+        return {
+            boardList
+        }
+    },
 }
 </script>
-
-<style scoped>
-
-</style>

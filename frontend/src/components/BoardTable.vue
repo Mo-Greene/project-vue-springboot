@@ -6,33 +6,38 @@
         >
             <thead>
             <tr>
-                <th class="text-left">
+                <th class="text-center">
                     No
                 </th>
-                <th class="text-left">
+                <th class="text-center" style="width: 50%">
                     Title
                 </th>
-                <th class="text-left">
+                <th class="text-center">
                     Writer
                 </th>
-                <th class="text-left">
+                <th class="text-center">
                     View
                 </th>
-                <th class="text-left">
+                <th class="text-center">
                     RegDate
                 </th>
-                <th class="text-left">
+                <th class="text-center">
                     ModDate
                 </th>
             </tr>
             </thead>
             <tbody>
             <tr
-                    v-for="item in desserts"
-                    :key="item.name"
+                    v-for="board in boardList"
+                    :key="board.boardNo"
+                    class="text-center"
             >
-                <td>{{ item.name }}</td>
-                <td>{{ item.calories }}</td>
+                <td>{{ board.boardNo }}</td>
+                <td>{{ board.boardTitle }}</td>
+                <td>{{ board.boardWriter }}</td>
+                <td>{{ board.boardView }}</td>
+                <td>{{ formatDateTime(board.boardRegDate) }}</td>
+                <td>{{ formatDateTime(board.boardModDate) }}</td>
             </tr>
             </tbody>
         </v-table>
@@ -42,50 +47,33 @@
 <script>
 export default {
     name: "BoardTable",
-    data () {
+    props: ["boardList"],
+    setup() {
+
+        //날짜 포맷팅
+        const formatDateTime = (dateTime) => {
+            if (dateTime) {
+                const date = new Date(dateTime);
+
+                const year = date.getFullYear() - 2000;
+                let month = date.getMonth() + 1;
+                let day = date.getDate();
+                let hour = date.getHours();
+                let minute = date.getMinutes();
+
+                return year + "-" + padZero(month) + "-" + padZero(day) + ' ' + padZero(hour) + ':' + padZero(minute);
+            } else {
+                return "-";
+            }
+        };
+
+        //날짜 포맷팅
+        const padZero = (number) => {
+            return number < 10 ? "0" + number : number;
+        };
+
         return {
-            desserts: [
-                {
-                    name: 'Frozen Yogurt',
-                    calories: 159,
-                },
-                {
-                    name: 'Ice cream sandwich',
-                    calories: 237,
-                },
-                {
-                    name: 'Eclair',
-                    calories: 262,
-                },
-                {
-                    name: 'Cupcake',
-                    calories: 305,
-                },
-                {
-                    name: 'Gingerbread',
-                    calories: 356,
-                },
-                {
-                    name: 'Jelly bean',
-                    calories: 375,
-                },
-                {
-                    name: 'Lollipop',
-                    calories: 392,
-                },
-                {
-                    name: 'Honeycomb',
-                    calories: 408,
-                },
-                {
-                    name: 'Donut',
-                    calories: 452,
-                },
-                {
-                    name: 'KitKat',
-                    calories: 518,
-                },
-            ],
+            formatDateTime
         }
     },
 }

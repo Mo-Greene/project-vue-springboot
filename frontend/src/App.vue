@@ -1,15 +1,21 @@
 <template>
-    <Headers/>
-    <router-view/>
+    <v-app>
+        <NavBar/>
+        <v-main>
+            <v-container>
+                <router-view/>
+            </v-container>
+        </v-main>
+    </v-app>
 </template>
 
 <script>
-import Headers from "@/components/Headers.vue";
+import NavBar from "@/components/NavBar.vue";
 
 export default {
     name: "App",
     components: {
-        Headers
+        NavBar
     }
 }
 </script>
