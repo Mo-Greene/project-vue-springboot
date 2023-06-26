@@ -36,9 +36,9 @@ export default {
         const drawer = ref(true);
 
         const items = [
-            {icon: 'mdi-head-snowflake-outline', title: 'Free', value: 'Free', link: 'free'},
-            {icon: 'mdi-bulletin-board', title: 'Notice', value: 'Notice', link: 'notice'},
-            {icon: 'mdi-content-save-outline', title: 'Attachment', value: 'Attachment', link: 'attachment'}
+            {icon: 'mdi-head-snowflake-outline', title: 'Free', value: 'Free', link: '/free'},
+            {icon: 'mdi-bulletin-board', title: 'Notice', value: 'Notice', link: '/notice'},
+            {icon: 'mdi-content-save-outline', title: 'Attachment', value: 'Attachment', link: '/attachment'}
         ];
 
         return {

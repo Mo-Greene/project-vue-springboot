@@ -1,11 +1,13 @@
 <template>
-    <v-card>
-        <v-card-title class="noticeTitleColor">공지게시판</v-card-title>
-        <v-divider class="border-opacity-75"></v-divider>
+    <v-container>
         <v-card>
-            <BoardTable :boardList="boardList"/>
+            <v-card-title class="noticeTitleColor">공지게시판</v-card-title>
+            <v-divider class="border-opacity-75"></v-divider>
+            <v-card>
+                <BoardTable :boardList="boardList"/>
+            </v-card>
         </v-card>
-    </v-card>
+    </v-container>
 </template>
 
 <script>

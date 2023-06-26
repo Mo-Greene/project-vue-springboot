@@ -1,11 +1,13 @@
 <template>
-    <v-card>
-        <v-card-title class="freeTitleColor">자유게시판</v-card-title>
-        <v-divider class="border-opacity-75"></v-divider>
-        <v-card-item>
-            <BoardTable :boardList="boardList"/>
-        </v-card-item>
-    </v-card>
+    <v-container>
+        <v-card>
+            <v-card-title class="freeTitleColor">자유게시판</v-card-title>
+            <v-divider class="border-opacity-75"></v-divider>
+            <v-card-item>
+                <BoardTable :boardList="boardList"/>
+            </v-card-item>
+        </v-card>
+    </v-container>
 </template>
 
 <script>

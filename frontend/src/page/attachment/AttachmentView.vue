@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <v-card>
-            <v-card-title class="noticeTitleColor">자료실 - 상세보기</v-card-title>
+            <v-card-title class="attachmentTitleColor">자료실 - 상세보기</v-card-title>
             <v-divider class="border-opacity-75"></v-divider>
             <v-card-item>
                 <BoardCard :boardArticle="attachmentArticle"/>

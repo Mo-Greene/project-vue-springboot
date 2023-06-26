@@ -1,41 +1,54 @@
 <template>
     <v-container>
-        <v-row>
-            <v-col>
-                <h2>{{ boardArticle.boardTitle }}</h2>
-            </v-col>
-        </v-row>
-        <v-divider></v-divider>
-        <div>
-            <v-row>
-                <v-col cols="4">
-                    <strong>작성자 :</strong> {{ boardArticle.boardWriter }}
-                </v-col>
-            </v-row>
-            <v-row>
-                <v-col cols="4">
-                    <strong>조회수 :</strong> {{ boardArticle.boardView }}
-                </v-col>
-            </v-row>
-            <v-row>
-                <v-col>
-                    <strong>생성일 :</strong> {{ formatDateTime(boardArticle.boardRegDate) }}
-                </v-col>
-            </v-row>
-            <v-row>
-                <v-col>
-                    <strong>수정일 :</strong> {{ formatDateTime(boardArticle.boardModDate) }}
-                </v-col>
-            </v-row>
-        </div>
-        <v-divider></v-divider>
-        <div>
-            <v-card-title>내용</v-card-title>
-            <v-card>
-                <v-card-text>{{ boardArticle.boardContent }}</v-card-text>
-            </v-card>
-        </div>
+        <v-table>
+            <tbody>
+                <tr>
+                    <th scope="row">제목</th>
+                    <td>{{ boardArticle.boardTitle }}</td>
+
+                    <th scope="row">조회수</th>
+                    <td>{{ boardArticle.boardView }}</td>
+                </tr>
+            </tbody>
+        </v-table>
     </v-container>
+<!--    <v-container>-->
+<!--        <v-row>-->
+<!--            <v-col>-->
+<!--                <h2>{{ boardArticle.boardTitle }}</h2>-->
+<!--            </v-col>-->
+<!--        </v-row>-->
+<!--        <v-divider></v-divider>-->
+<!--        <div>-->
+<!--            <v-row>-->
+<!--                <v-col cols="4">-->
+<!--                    <strong>작성자 :</strong> {{ boardArticle.boardWriter }}-->
+<!--                </v-col>-->
+<!--            </v-row>-->
+<!--            <v-row>-->
+<!--                <v-col cols="4">-->
+<!--                    <strong>조회수 :</strong> {{ boardArticle.boardView }}-->
+<!--                </v-col>-->
+<!--            </v-row>-->
+<!--            <v-row>-->
+<!--                <v-col>-->
+<!--                    <strong>생성일 :</strong> {{ formatDateTime(boardArticle.boardRegDate) }}-->
+<!--                </v-col>-->
+<!--            </v-row>-->
+<!--            <v-row>-->
+<!--                <v-col>-->
+<!--                    <strong>수정일 :</strong> {{ formatDateTime(boardArticle.boardModDate) }}-->
+<!--                </v-col>-->
+<!--            </v-row>-->
+<!--        </div>-->
+<!--        <v-divider></v-divider>-->
+<!--        <div>-->
+<!--            <v-card-title>내용</v-card-title>-->
+<!--            <v-card>-->
+<!--                <v-card-text>{{ boardArticle.boardContent }}</v-card-text>-->
+<!--            </v-card>-->
+<!--        </div>-->
+<!--    </v-container>-->
 </template>
 
 <script>
