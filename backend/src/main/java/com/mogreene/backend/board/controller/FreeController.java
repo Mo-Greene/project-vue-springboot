@@ -36,6 +36,7 @@ public class FreeController {
     @PostMapping("")
     public ResponseEntity<ApiResponseDTO<?>> postFreeArticle(@RequestBody BoardDTO boardDto) {
 
+        log.info("boardDto : " + boardDto);
         freeService.postFreeArticle(boardDto);
 
         ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()

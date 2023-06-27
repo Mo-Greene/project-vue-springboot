@@ -5,6 +5,8 @@ import Attachment from "@/page/attachment/Attachment.vue";
 import FreeView from "@/page/free/FreeView.vue";
 import NoticeView from "@/page/notice/NoticeView.vue";
 import AttachmentView from "@/page/attachment/AttachmentView.vue";
+import FreeWrite from "@/page/free/FreeWrite.vue";
+import NoticeWrite from "@/page/notice/NoticeWrite.vue";
 
 const routes = [
     {
@@ -18,6 +20,11 @@ const routes = [
         component: FreeView
     },
     {
+        path: "/free/write",
+        name: "자유게시글 등록",
+        component: FreeWrite
+    },
+    {
         path: "/notice",
         name: "공지게시판",
         component: Notice
@@ -26,6 +33,11 @@ const routes = [
         path: "/notice/:boardNo",
         name: "공지게시판 상세조회",
         component: NoticeView
+    },
+    {
+        path: "/notice/write",
+        name: "공지게시글 등록",
+        component: NoticeWrite
     },
     {
         path: "/attachment",

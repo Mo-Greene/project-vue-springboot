@@ -16,3 +16,12 @@ export async function getFreeList() {
 export async function getFreeArticle(boardNo) {
     return http.get('/free/' + boardNo)
 }
+
+/**
+ * 자유게시글 등록
+ * @param boardDto
+ * @returns {Promise<axios.AxiosResponse<any>>}
+ */
+export async function postArticle(boardDto) {
+    return http.post('/free', boardDto);
+}
