@@ -35,40 +35,77 @@
                 <v-card-text>{{ boardArticle.boardContent }}</v-card-text>
             </v-card>
         </div>
+
+
+        <div v-if="props.boardArticle.fileList !== null">
+            <v-row>
+                <v-col>
+                    <div v-for="(file, i) in props.boardArticle.fileList"
+                         :key="i">
+                        <a
+                            @click="fileDownload(file.fileNo, file.fileOriginalName)">
+                            {{ file.fileOriginalName }}
+                        </a>
+                    </div>
+                </v-col>
+            </v-row>
+        </div>
+
     </v-container>
+    <v-col
+            cols="auto"
+            class="text-right"
+    >
+        <v-btn
+                icon="mdi-format-list-bulleted-type"
+                @click="$router.go(-1)"
+        >
+        </v-btn>
+    </v-col>
 </template>
 
-<script>
-export default {
-    name: "BoardCard",
-    props: ['boardArticle'],
-    setup() {
+<script setup>
+import { defineProps } from 'vue';
+import * as attachmentApi from '@/api/file/attachment'
 
-        //날짜 포맷팅
-        const formatDateTime = (dateTime) => {
-            if (dateTime) {
-                const date = new Date(dateTime);
+const props = defineProps(['boardArticle'])
 
-                const year = date.getFullYear() - 2000;
-                let month = date.getMonth() + 1;
-                let day = date.getDate();
-                let hour = date.getHours();
-                let minute = date.getMinutes();
+//파일 다운로드
+const fileDownload = async (fileNo, fileOriginalName) => {
+    try {
+        const response = await attachmentApi.downloadFile(fileNo);
 
-                return year + "-" + padZero(month) + "-" + padZero(day) + ' ' + padZero(hour) + ':' + padZero(minute);
-            } else {
-                return "-";
-            }
-        };
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
 
-        //날짜 포맷팅
-        const padZero = (number) => {
-            return number < 10 ? "0" + number : number;
-        };
-
-        return {
-            formatDateTime,
-        }
+        link.setAttribute('download', fileOriginalName);
+        document.body.appendChild(link);
+        link.click();
+    } catch (error) {
+        console.log(error)
     }
 }
+
+//날짜 포맷팅
+const formatDateTime = (dateTime) => {
+    if (dateTime) {
+        const date = new Date(dateTime);
+
+        const year = date.getFullYear() - 2000;
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+        let hour = date.getHours();
+        let minute = date.getMinutes();
+
+        return year + "-" + padZero(month) + "-" + padZero(day) + ' ' + padZero(hour) + ':' + padZero(minute);
+    } else {
+        return "-";
+    }
+};
+
+//날짜 포맷팅
+const padZero = (number) => {
+    return number < 10 ? "0" + number : number;
+};
 </script>

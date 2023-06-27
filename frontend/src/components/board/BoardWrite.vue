@@ -50,7 +50,7 @@
                                 />
                             </v-col>
 
-                            <v-col cols="12" v-if="props.categoryBoard === 'ATTACHMENT'">
+                            <v-col cols="12" v-if="categoryBoard === 'ATTACHMENT'">
                                 <v-file-input
                                     multiple
                                     label="File input"
@@ -91,7 +91,7 @@
 </template>
 
 <script setup>
-import { ref, defineEmits} from "vue";
+import { ref, defineEmits, defineProps } from "vue";
 
 const props = defineProps(['categoryBoard'])
 const emit = defineEmits(['postArticle']);

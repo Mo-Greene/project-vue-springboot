@@ -8,16 +8,12 @@
             </v-card-item>
         </v-card>
     </v-container>
-
-    <v-row justify="center">
-        <v-btn variant="elevated" color="primary" @click="goBack">목록</v-btn>
-    </v-row>
 </template>
 
 <script>
 import BoardCard from "@/components/board/BoardCard.vue";
 import {onMounted, ref} from "vue";
-import * as noticeBoardApi from '@/api/boardNotice'
+import * as noticeBoardApi from '@/api/board/boardNotice'
 import {useRoute, useRouter} from "vue-router";
 
 export default {

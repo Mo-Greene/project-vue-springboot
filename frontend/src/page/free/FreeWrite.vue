@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <v-card>
-            <v-card-title>게시글 등록</v-card-title>
+            <v-card-title class="text-center">게시글 등록</v-card-title>
             <v-card>
                 <BoardWrite
                     :categoryBoard="categoryBoard"
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import * as boardFreeApi from '@/api/boardFree'
+import * as boardFreeApi from '@/api/board/boardFree'
 import {useRouter} from "vue-router";
 import BoardWrite from "@/components/board/BoardWrite.vue";
 

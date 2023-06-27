@@ -20,7 +20,7 @@
 
 <script>
 import {onMounted, ref} from "vue";
-import * as noticeBoardApi from '@/api/boardNotice'
+import * as noticeBoardApi from '@/api/board/boardNotice'
 import BoardTable from "@/components/board/BoardTable.vue";
 
 export default {

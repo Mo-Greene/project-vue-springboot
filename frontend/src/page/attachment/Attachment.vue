@@ -12,7 +12,7 @@
 
 <script>
 import {onMounted, ref} from "vue";
-import * as attachmentBoardApi from '@/api/boardAttachment'
+import * as attachmentBoardApi from '@/api/board/boardAttachment'
 import BoardTable from "@/components/board/BoardTable.vue";
 
 export default {

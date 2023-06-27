@@ -21,7 +21,7 @@
 <script>
 import BoardTable from "@/components/board/BoardTable.vue";
 import {onMounted, ref} from "vue";
-import * as freeBoardApi from '@/api/boardFree'
+import * as freeBoardApi from '@/api/board/boardFree'
 
 export default {
     name: "Free",
