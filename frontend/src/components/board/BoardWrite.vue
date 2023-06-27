@@ -15,6 +15,7 @@
                                 <v-text-field
                                         label="Title"
                                         v-model="boardTitle"
+                                        :rules="boardTitleRules"
                                 />
                             </v-col>
                             <!--todo : 후에 작성자 삭제 시 md=6만 제거-->
@@ -54,6 +55,7 @@
                                 <v-file-input
                                     multiple
                                     label="File input"
+                                    v-model="files"
                                 ></v-file-input>
                             </v-col>
 
@@ -91,7 +93,7 @@
 </template>
 
 <script setup>
-import { ref, defineEmits, defineProps } from "vue";
+import { ref, defineEmits } from "vue";
 
 const props = defineProps(['categoryBoard'])
 const emit = defineEmits(['postArticle']);
@@ -99,15 +101,45 @@ const emit = defineEmits(['postArticle']);
 const boardTitle = ref('');
 const boardContent = ref('');
 const boardWriter = ref('');
+const files = ref([]);
 
 const postArticle = () => {
-    const boardDto = {
-        boardTitle: boardTitle.value,
-        boardContent: boardContent.value,
-        boardWriter: boardWriter.value,
-        categoryBoard: props.categoryBoard
-    }
+    if (props.categoryBoard === 'ATTACHMENT') {
 
-    emit('postArticle', boardDto)
+        const formData = new FormData();
+
+        formData.append('boardDTO',
+            new Blob([JSON.stringify({
+                boardTitle: boardTitle.value,
+                boardContent: boardContent.value,
+                boardWriter: boardWriter.value,
+                categoryBoard: props.categoryBoard
+            })], {type: "application/json"})
+        );
+
+        for (let i = 0; i < files.value.length; i++) {
+            console.log(files.value[i])
+            formData.append('file', files.value[i])
+        }
+
+        emit('postArticle', formData)
+    } else {
+        const boardDto = {
+            boardTitle: boardTitle.value,
+            boardContent: boardContent.value,
+            boardWriter: boardWriter.value,
+            categoryBoard: props.categoryBoard
+        };
+
+        emit('postArticle', boardDto)
+    }
 }
+
+const boardTitleRules = [
+    (value) => {
+     if (value?.length > 3) return true
+
+        return '제목은 4글자 이상으로 적어주세요.'
+    }
+]
 </script>

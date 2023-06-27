@@ -37,7 +37,7 @@ public class AttachmentServiceImpl implements AttachmentService {
     //자료실 게시글 + 첨부파일 등록
     @Override
     @Transactional
-    public void postAttachment(BoardDTO boardDTO, List<MultipartFile> files) throws IOException {
+    public void postAttachment(BoardDTO boardDTO, MultipartFile[] files) throws IOException {
 
         //base_board insert
         baseRepository.postBaseBoard(boardDTO);

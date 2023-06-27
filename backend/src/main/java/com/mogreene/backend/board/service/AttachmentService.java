@@ -17,7 +17,7 @@ import java.util.List;
 public interface AttachmentService {
 
     //자료실 등록 + 첨부파일
-    void postAttachment(BoardDTO boardDTO, List<MultipartFile> files) throws IOException;
+    void postAttachment(BoardDTO boardDTO, MultipartFile[] files) throws IOException;
 
     //자료실 조회
     List<BoardDTO> getAttachmentArticleList(PageRequestDTO pageRequestDTO);

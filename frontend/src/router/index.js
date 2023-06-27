@@ -7,6 +7,7 @@ import NoticeView from "@/page/notice/NoticeView.vue";
 import AttachmentView from "@/page/attachment/AttachmentView.vue";
 import FreeWrite from "@/page/free/FreeWrite.vue";
 import NoticeWrite from "@/page/notice/NoticeWrite.vue";
+import AttachmentWrite from "@/page/attachment/AttachmentWrite.vue";
 
 const routes = [
     {
@@ -48,6 +49,11 @@ const routes = [
         path: "/attachment/:boardNo",
         name: "자료실 상세조회",
         component: AttachmentView
+    },
+    {
+        path: "/attachment/write",
+        name: "자료실 등록",
+        component: AttachmentWrite
     }
 ];
 

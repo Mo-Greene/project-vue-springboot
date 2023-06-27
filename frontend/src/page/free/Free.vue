@@ -12,7 +12,7 @@
         <v-col cols="2" offset="2">
             <v-btn
                 icon="mdi-pencil"
-                color="primary"
+                color="success"
                 @click="$router.push('/free/write')"></v-btn>
         </v-col>
     </v-row>

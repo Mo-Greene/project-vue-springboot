@@ -8,6 +8,14 @@
             </v-card>
         </v-card>
     </v-container>
+    <v-row justify="end">
+        <v-col cols="2" offset="2">
+            <v-btn
+                icon="mdi-pencil"
+                color="success"
+                @click="$router.push('/attachment/write')"></v-btn>
+        </v-col>
+    </v-row>
 </template>
 
 <script>

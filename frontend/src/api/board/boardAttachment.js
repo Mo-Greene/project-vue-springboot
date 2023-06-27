@@ -16,3 +16,14 @@ export async function getAttachmentList() {
 export async function getAttachmentArticle(boardNo) {
     return http.get('/attachment/' + boardNo)
 }
+
+/**
+ * 자료실 등록
+ * @param formData
+ * @returns {Promise<axios.AxiosResponse<any>>}
+ */
+export async function postArticle(formData) {
+    return http.post('/attachment', formData, {
+        headers: {'Content-Type': 'multipart/form-data'}
+    })
+}
