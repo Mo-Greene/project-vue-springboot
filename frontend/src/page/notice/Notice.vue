@@ -18,32 +18,24 @@
     </v-row>
 </template>
 
-<script>
+<script setup>
 import {onMounted, ref} from "vue";
 import * as noticeBoardApi from '@/api/board/boardNotice'
 import BoardTable from "@/components/board/BoardTable.vue";
 
-export default {
-    name: "Notice",
-    components: {BoardTable},
-    setup() {
-        const boardList = ref([])
+const boardList = ref([])
+const pagination = ref([])
 
-        //공지게시글 get
-        const noticeList = async () => {
-            const response = await noticeBoardApi.getNoticeList();
-            boardList.value = response.data.data
-        }
-
-        onMounted(() => {
-            noticeList();
-        })
-
-        return {
-            boardList
-        }
-    },
+//공지게시글 get
+const noticeList = async () => {
+    const response = await noticeBoardApi.getNoticeList();
+    boardList.value = response.data.data.noticeList;
+    pagination.value = response.data.data.pagination;
 }
+
+onMounted(() => {
+    noticeList();
+})
 </script>
 
 <style>

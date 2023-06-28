@@ -10,11 +10,6 @@
                 OR bf.free_content LIKE CONCAT('%', #{keyword}, '%')
                 OR bf.free_writer LIKE CONCAT('%', #{keyword}, '%')
             </if>
-            <if test="categoryBoard != null and categoryBoard.length > 0">
-                <trim prefix="and">
-                    bb.category_board LIKE #{categoryBoard}
-                </trim>
-            </if>
             <if test="startDate != null and endDate != null">
                 <trim prefix="and">
                     bb.board_reg_date BETWEEN date(#{startDate}) AND date(#{endDate})
@@ -56,7 +51,8 @@
         ORDER BY
             bf.board_no DESC
 
-        LIMIT #{skip}, #{size}
+        LIMIT
+            #{skip}, #{size}
         ;
     </select>
 

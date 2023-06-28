@@ -2,6 +2,7 @@ package com.mogreene.backend.board.controller;
 
 import com.mogreene.backend.board.dto.BoardDTO;
 import com.mogreene.backend.board.dto.page.PageRequestDTO;
+import com.mogreene.backend.board.dto.page.PageResponseDTO;
 import com.mogreene.backend.board.service.FreeService;
 import com.mogreene.backend.config.responseApi.ApiResponseDTO;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +13,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @name : FreeController
@@ -36,7 +39,6 @@ public class FreeController {
     @PostMapping("")
     public ResponseEntity<ApiResponseDTO<?>> postFreeArticle(@RequestBody BoardDTO boardDto) {
 
-        log.info("boardDto : " + boardDto);
         freeService.postFreeArticle(boardDto);
 
         ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()
@@ -59,10 +61,15 @@ public class FreeController {
         }
 
         List<BoardDTO> freeList = freeService.getFreeArticleList(pageRequestDTO);
+        PageResponseDTO pagination = freeService.pagination(pageRequestDTO);
+
+        Map<String, Object> freeObject = new HashMap<>();
+        freeObject.put("freeList", freeList);
+        freeObject.put("pagination", pagination);
 
         ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()
                 .httpStatus(HttpStatus.OK)
-                .data(freeList)
+                .data(freeObject)
                 .build();
         return new ResponseEntity<>(apiResponseDTO, HttpStatus.OK);
     }

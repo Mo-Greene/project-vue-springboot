@@ -2,6 +2,7 @@ package com.mogreene.backend.board.controller;
 
 import com.mogreene.backend.board.dto.BoardDTO;
 import com.mogreene.backend.board.dto.page.PageRequestDTO;
+import com.mogreene.backend.board.dto.page.PageResponseDTO;
 import com.mogreene.backend.board.service.AttachmentService;
 import com.mogreene.backend.config.responseApi.ApiResponseDTO;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @name : AttachmentController
@@ -63,10 +66,15 @@ public class AttachmentController {
         }
 
         List<BoardDTO> attachmentList = attachmentService.getAttachmentArticleList(pageRequestDTO);
+        PageResponseDTO pagination = attachmentService.pagination(pageRequestDTO);
+
+        Map<String, Object> attachmentObject = new HashMap<>();
+        attachmentObject.put("attachmentList", attachmentList);
+        attachmentObject.put("pagination", pagination);
 
         ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()
                 .httpStatus(HttpStatus.OK)
-                .data(attachmentList)
+                .data(attachmentObject)
                 .build();
 
         return new ResponseEntity<>(apiResponseDTO, HttpStatus.OK);

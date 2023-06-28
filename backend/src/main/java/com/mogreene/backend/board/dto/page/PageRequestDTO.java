@@ -10,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * @name : PageRequestDTO
@@ -42,15 +43,10 @@ public class PageRequestDTO {
 
     /* 검색조건 */
     //날짜 시작
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate startDate;
+    private String startDate;
 
     //날짜 종료
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate endDate;
-
-    //카테고리 검색
-    private CategoryBoard categoryBoard;
+    private String endDate;
 
     //검색어
     private String keyword;

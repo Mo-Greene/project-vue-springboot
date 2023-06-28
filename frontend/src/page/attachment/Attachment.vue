@@ -18,32 +18,24 @@
     </v-row>
 </template>
 
-<script>
+<script setup>
 import {onMounted, ref} from "vue";
 import * as attachmentBoardApi from '@/api/board/boardAttachment'
 import BoardTable from "@/components/board/BoardTable.vue";
 
-export default {
-    name: "Attachment",
-    components: {BoardTable},
-    setup() {
-        const boardList = ref([])
+const boardList = ref([])
+const pagination = ref([])
 
-        //자료실 get
-        const attachmentList = async () => {
-            const response = await attachmentBoardApi.getAttachmentList();
-            boardList.value = response.data.data
-        }
-
-        onMounted(() => {
-            attachmentList();
-        })
-
-        return {
-            boardList
-        }
-    },
+//자료실 get
+const attachmentList = async () => {
+    const response = await attachmentBoardApi.getAttachmentList();
+    boardList.value = response.data.data.attachmentList;
+    pagination.value = response.data.data.pagination;
 }
+
+onMounted(() => {
+    attachmentList();
+})
 </script>
 
 <style>

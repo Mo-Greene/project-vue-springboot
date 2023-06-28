@@ -29,12 +29,6 @@ public class PageResponseDTO {
     //끝 페이지
     private int endPage;
 
-    //이전 존재 여부
-    private boolean prev;
-
-    //다음 존재 여부
-    private boolean next;
-
     @Builder(builderMethodName = "pagination")
     public PageResponseDTO(PageRequestDTO pageRequestDTO, int total) {
         this.page = pageRequestDTO.getPage();
@@ -45,7 +39,5 @@ public class PageResponseDTO {
         /* 총 게시글이 endPage 보다 적을 경우 */
         int last = (int)(Math.ceil((total / (double) size)));
         this.endPage = Math.min(endPage, last);
-        this.prev = this.startPage > 1;
-        this.next = total > this.endPage * this.size;
     }
 }

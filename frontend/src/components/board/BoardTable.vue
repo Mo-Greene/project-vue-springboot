@@ -45,6 +45,9 @@
             </tr>
             </tbody>
         </v-table>
+        <div v-if="boardList.length === 0" class="text-center">
+            게시글이 없습니다.
+        </div>
     </v-container>
 </template>
 
