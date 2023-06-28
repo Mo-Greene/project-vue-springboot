@@ -48,43 +48,35 @@
     </v-container>
 </template>
 
-<script>
-export default {
-    name: "BoardTable",
-    props: ["boardList"],
-    setup() {
+<script setup>
 
-        //날짜 포맷팅
-        const formatDateTime = (dateTime) => {
-            if (dateTime) {
-                const date = new Date(dateTime);
+const props = defineProps(['boardList']);
 
-                const year = date.getFullYear() - 2000;
-                let month = date.getMonth() + 1;
-                let day = date.getDate();
-                let hour = date.getHours();
-                let minute = date.getMinutes();
+//날짜 포맷팅
+const formatDateTime = (dateTime) => {
+    if (dateTime) {
+        const date = new Date(dateTime);
 
-                return year + "-" + padZero(month) + "-" + padZero(day) + ' ' + padZero(hour) + ':' + padZero(minute);
-            } else {
-                return "-";
-            }
-        };
+        const year = date.getFullYear() - 2000;
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+        let hour = date.getHours();
+        let minute = date.getMinutes();
 
-        //날짜 포맷팅
-        const padZero = (number) => {
-            return number < 10 ? "0" + number : number;
-        };
+        return year + "-" + padZero(month) + "-" + padZero(day) + ' ' + padZero(hour) + ':' + padZero(minute);
+    } else {
+        return "-";
+    }
+};
 
-        //카테고리 파싱
-        const parseCategory = (category) => {
-            return category.toLowerCase();
-        }
+//날짜 포맷팅
+const padZero = (number) => {
+    return number < 10 ? "0" + number : number;
+};
 
-        return {
-            formatDateTime,
-            parseCategory,
-        }
-    },
+//카테고리 파싱
+const parseCategory = (category) => {
+    return category.toLowerCase();
 }
+
 </script>

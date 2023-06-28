@@ -65,7 +65,6 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue';
 import * as attachmentApi from '@/api/file/attachment'
 
 const props = defineProps(['boardArticle'])

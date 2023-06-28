@@ -6,7 +6,9 @@
                     md="8"
             >
 
-                <v-form>
+                <v-form
+                    ref="form"
+                >
                     <v-container>
                         <v-row>
                             <v-col
@@ -48,6 +50,7 @@
                                 <v-textarea
                                         label="Content"
                                         v-model="boardContent"
+                                        :rules="boardContentRules"
                                 />
                             </v-col>
 
@@ -56,6 +59,7 @@
                                     multiple
                                     label="File input"
                                     v-model="files"
+                                    :rules="fileInputRules"
                                 ></v-file-input>
                             </v-col>
 
@@ -79,7 +83,7 @@
                                             color="success"
                                             icon="mdi-pen-plus"
                                             class="mr-0"
-                                            @click="postArticle"
+                                            @click="validation"
                                     >
                                     </v-btn>
                                 </v-col>
@@ -102,8 +106,10 @@ const boardTitle = ref('');
 const boardContent = ref('');
 const boardWriter = ref('');
 const files = ref([]);
+const form = ref();
 
-const postArticle = () => {
+//게시글 등록
+const postArticleSubmit = () => {
     if (props.categoryBoard === 'ATTACHMENT') {
 
         const formData = new FormData();
@@ -135,11 +141,44 @@ const postArticle = () => {
     }
 }
 
-const boardTitleRules = [
-    (value) => {
-     if (value?.length > 3) return true
+//Vuetify Validation
+async function validation () {
+    const { valid } = await form.value.validate();
 
-        return '제목은 4글자 이상으로 적어주세요.'
+    if (valid) postArticleSubmit();
+    else {
+        alert('양식을 지켜주세요.');
     }
-]
+}
+
+const boardTitleRules = ref([
+    value => {
+        if (value) return true
+        return '제목을 적어주세요.'
+    },
+    value => {
+        if (value?.length > 3 && value?.length <= 100) return true
+        return '제목은 4자 이상 100자 이하로 적어주세요.'
+    }
+])
+const boardContentRules = ref([
+    value => {
+        if (value) return true
+        return '내용을 적어주세요.'
+    },
+    value => {
+        if (value?.length > 3 && value?.length <= 2000) return true
+        return '내용은 4자 이상 2000자 이하로 적어주세요.'
+    }
+])
+const fileInputRules = ref([
+    value => {
+        if (value.length > 0) return true
+        return '파일을 첨부해주세요.'
+    },
+    value => {
+        if (value.length < 4) return true
+        return '파일은 최대 3개까지 가능합니다.'
+    }
+])
 </script>
