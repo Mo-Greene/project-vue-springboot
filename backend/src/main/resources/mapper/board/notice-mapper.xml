@@ -10,11 +10,6 @@
                 OR bn.notice_content LIKE CONCAT('%', #{keyword}, '%')
                 OR bn.notice_writer LIKE CONCAT('%', #{keyword}, '%')
             </if>
-            <if test="categoryBoard != null and categoryBoard.length > 0">
-                <trim prefix="and">
-                    bb.category_board LIKE #{categoryBoard}
-                </trim>
-            </if>
             <if test="startDate != null and endDate != null">
                 <trim prefix="and">
                     bb.board_reg_date BETWEEN date(#{startDate}) AND date(#{endDate})

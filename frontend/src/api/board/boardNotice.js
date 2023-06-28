@@ -1,6 +1,24 @@
 import http from "@/api/http";
 
 /**
+ * 공지게시판 검색
+ * @param keyword
+ * @param startDate
+ * @param endDate
+ * @returns {Promise<void>}
+ */
+export async function getNoticeListWithQuery(keyword, startDate, endDate) {
+    return http.get('/notice', {
+        params: {
+            keyword: keyword,
+            startDate: startDate,
+            endDate: endDate
+        }
+    })
+}
+
+
+/**
  * 공지게시판 조회
  * @returns {Promise<axios.AxiosResponse<any>>}
  */
