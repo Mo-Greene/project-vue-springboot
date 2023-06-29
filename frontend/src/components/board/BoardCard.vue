@@ -52,16 +52,6 @@
         </div>
 
     </v-container>
-    <v-col
-            cols="auto"
-            class="text-right"
-    >
-        <v-btn
-                icon="mdi-format-list-bulleted-type"
-                @click="$router.go(-1)"
-        >
-        </v-btn>
-    </v-col>
 </template>
 
 <script setup>

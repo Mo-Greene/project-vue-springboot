@@ -1,6 +1,15 @@
 import http from "@/api/http";
 
 /**
+ * 게시글 삭제
+ * @param boardNo
+ * @returns {Promise<void>}
+ */
+export async function deleteArticle(boardNo) {
+    return http.delete('/free/delete/' + boardNo);
+}
+
+/**
  * 자유게시판 검색
  * @returns {Promise<void>}
  * @param keyword
