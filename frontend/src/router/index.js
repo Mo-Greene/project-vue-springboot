@@ -8,6 +8,7 @@ import AttachmentView from "@/page/attachment/AttachmentView.vue";
 import FreeWrite from "@/page/free/FreeWrite.vue";
 import NoticeWrite from "@/page/notice/NoticeWrite.vue";
 import AttachmentWrite from "@/page/attachment/AttachmentWrite.vue";
+import FreeModify from "@/page/free/FreeModify.vue";
 
 const routes = [
     {
@@ -24,6 +25,11 @@ const routes = [
         path: "/free/write",
         name: "자유게시글 등록",
         component: FreeWrite
+    },
+    {
+        path: "/free/modify/:boardNo",
+        name: "자유게시글 수정",
+        component: FreeModify
     },
     {
         path: "/notice",
@@ -54,7 +60,7 @@ const routes = [
         path: "/attachment/write",
         name: "자료실 등록",
         component: AttachmentWrite
-    }
+    },
 ];
 
 const router = createRouter({

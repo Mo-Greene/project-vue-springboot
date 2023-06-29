@@ -11,38 +11,27 @@
     </v-container>
 </template>
 
-<script>
+<script setup>
 import BoardWrite from "@/components/board/BoardWrite.vue";
 import * as boardNoticeApi from '@/api/board/boardNotice';
 import {useRouter} from "vue-router";
-export default {
-    name: "NoticeWrite",
-    components: {
-        BoardWrite,
-    },
-    setup() {
-        const categoryBoard = 'NOTICE';
-        const router = useRouter();
 
-        //todo vuex로 빼기
-        const goList = () => {
-            router.push('/notice')
-        };
+const categoryBoard = 'NOTICE';
+const router = useRouter();
 
-        //게시글 등록
-        const postArticleHandler = async (object) => {
-            const response = await boardNoticeApi.postArticle(object);
+//todo vuex로 빼기
+const goList = () => {
+    router.push('/notice')
+};
 
-            if (response.status === 201) {
-                alert('등록 성공')
-                goList()
-            }
-        }
+//게시글 등록
+const postArticleHandler = async (object) => {
+    const response = await boardNoticeApi.postArticle(object);
 
-        return {
-            categoryBoard,
-            postArticleHandler
-        }
-    },
+    if (response.status === 201) {
+        alert('등록 성공')
+        goList()
+    }
 }
+
 </script>

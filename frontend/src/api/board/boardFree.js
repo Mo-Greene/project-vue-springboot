@@ -1,6 +1,16 @@
 import http from "@/api/http";
 
 /**
+ * 게시글 수정
+ * @param boardNo
+ * @param boardDto
+ * @returns {Promise<void>}
+ */
+export async function updateFreeArticle(boardNo, boardDto) {
+    return http.put('/free/modify/' + boardNo, boardDto)
+}
+
+/**
  * 게시글 삭제
  * @param boardNo
  * @returns {Promise<void>}
@@ -41,6 +51,15 @@ export async function getFreeList() {
  */
 export async function getFreeArticle(boardNo) {
     return http.get('/free/' + boardNo)
+}
+
+/**
+ * 수정페이지 게시글 조회 (조회수 증가 x)
+ * @param boardNo
+ * @returns {Promise<axios.AxiosResponse<any>>}
+ */
+export async function getModifyFreeArticle(boardNo) {
+    return http.get('/free/modify/' + boardNo)
 }
 
 /**

@@ -91,6 +91,21 @@ public class FreeController {
     }
 
     /**
+     * 수정페이지 게시글 조회(조회수 증가 x)
+     * @param boardNo
+     * @return
+     */
+    @GetMapping("/modify/{boardNo}")
+    public ResponseEntity<ApiResponseDTO<?>> modifyFreeArticle(@PathVariable Long boardNo) {
+
+        ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()
+                .httpStatus(HttpStatus.OK)
+                .data(freeService.modifyFreeArticle(boardNo))
+                .build();
+        return new ResponseEntity<>(apiResponseDTO, HttpStatus.OK);
+    }
+
+    /**
      * 자유게시글 수정
      * @param boardDTO
      * @return
@@ -99,8 +114,12 @@ public class FreeController {
     public ResponseEntity<ApiResponseDTO<?>> updateFreeArticle(@PathVariable Long boardNo,
                                                                @RequestBody BoardDTO boardDTO) {
 
-        boardDTO.setBoardNo(boardNo);
-        freeService.updateFreeArticle(boardDTO);
+        log.info("modifyCheck!");
+        log.info("boardNo : " + boardNo);
+        log.info("boardDto : " + boardDTO);
+//
+//        boardDTO.setBoardNo(boardNo);
+//        freeService.updateFreeArticle(boardDTO);
 
         ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()
                 .httpStatus(HttpStatus.OK)

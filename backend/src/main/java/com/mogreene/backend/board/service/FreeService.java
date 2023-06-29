@@ -26,6 +26,9 @@ public interface FreeService {
     //게시글 상세조회
     BoardDTO readFreeArticle(Long boardNo);
 
+    //게시글 수정페이지 조회(조회수 증가 x)
+    BoardDTO modifyFreeArticle(Long boardNo);
+
     //게시글 수정
     void updateFreeArticle(BoardDTO boardDTO);
 

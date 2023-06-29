@@ -45,7 +45,6 @@ import {onMounted, ref} from "vue";
 import * as attachmentBoardApi from '@/api/board/boardAttachment'
 import {useRoute, useRouter} from "vue-router";
 import CheckModal from "@/components/modal/CheckModal.vue";
-import * as noticeBoardApi from "@/api/board/boardNotice";
 
 const currentRoute = useRoute();
 const router = useRouter();
@@ -62,7 +61,7 @@ const viewArticle = async () => {
 
 //뒤로가기
 const goList = () => {
-    router.push('/notice');
+    router.push('/attachment');
 }
 
 

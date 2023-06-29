@@ -11,40 +11,28 @@
     </v-container>
 </template>
 
-<script>
+<script setup>
 import BoardWrite from "@/components/board/BoardWrite.vue";
 import * as boardAttachmentApi from '@/api/board/boardAttachment'
 import {useRouter} from "vue-router";
 
-export default {
-    name: "AttachmentWrite",
-    components: {
-        BoardWrite,
-    },
-    setup() {
-        const categoryBoard = 'ATTACHMENT';
-        const router = useRouter();
+const categoryBoard = 'ATTACHMENT';
+const router = useRouter();
 
-        //todo vuex로 빼기
-        const goList = () => {
-            router.push('/attachment')
-        };
+//todo vuex로 빼기
+const goList = () => {
+    router.push('/attachment')
+};
 
-        //게시글 등록
-        const postArticleHandler = async (object) => {
+//게시글 등록
+const postArticleHandler = async (object) => {
 
-            const response = await boardAttachmentApi.postArticle(object);
+    const response = await boardAttachmentApi.postArticle(object);
 
-            if (response.status === 201) {
-                alert('등록 성공');
-                goList();
-            }
-        }
-
-        return {
-            categoryBoard,
-            postArticleHandler
-        }
+    if (response.status === 201) {
+        alert('등록 성공');
+        goList();
     }
 }
+
 </script>

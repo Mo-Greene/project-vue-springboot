@@ -22,7 +22,7 @@
                         icon="mdi-pencil-plus"
                         class="mr-2"
                         color="blue"
-                        @click="modifyArticleConfirm"
+                        @click="modifyArticle(freeArticle.boardNo)"
                     ></v-btn>
                     <v-btn
                         icon="mdi-delete"
@@ -70,10 +70,13 @@ const deleteArticleConfirm = () => {
     modalType.value = 'DELETE'
     showPopup.value = true;
 }
-
 const modifyArticleConfirm = () => {
     modalType.value = 'MODIFY'
     showPopup.value = true;
+}
+
+const modifyArticle = (boardNo) => {
+    router.push('/free/modify/' + boardNo)
 }
 
 //컨펌 핸들러

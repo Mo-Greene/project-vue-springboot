@@ -70,6 +70,14 @@ public class FreeServiceImpl implements FreeService {
         return freeRepository.readFreeArticle(boardNo);
     }
 
+    //수정페이지 상세조회(조회수 증가 x)
+    @Override
+    @Transactional(readOnly = true)
+    public BoardDTO modifyFreeArticle(Long boardNo) {
+
+        return freeRepository.readFreeArticle(boardNo);
+    }
+
     //자유게시글 수정
     @Override
     public void updateFreeArticle(BoardDTO boardDTO) {

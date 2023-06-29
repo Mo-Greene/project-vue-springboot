@@ -11,38 +11,25 @@
     </v-container>
 </template>
 
-<script>
+<script setup>
 import * as boardFreeApi from '@/api/board/boardFree'
 import {useRouter} from "vue-router";
 import BoardWrite from "@/components/board/BoardWrite.vue";
 
-export default {
-    name: "FreeWrite",
-    components: {
-      BoardWrite
-    },
-    setup() {
-        const categoryBoard = 'FREE';
-        const router = useRouter();
+const categoryBoard = 'FREE';
+const router = useRouter();
 
-        //todo vuex로 빼기
-        const goList = () => {
-            router.push('/free')
-        };
+//todo vuex로 빼기
+const goList = () => {
+    router.push('/free')
+};
 
-        const postArticleHandler = async (object) => {
-            const response = await boardFreeApi.postArticle(object);
+const postArticleHandler = async (object) => {
+    const response = await boardFreeApi.postArticle(object);
 
-            if (response.status === 201) {
-                alert('등록 성공')
-                goList()
-            }
-        }
-
-        return {
-            categoryBoard,
-            postArticleHandler
-        }
-    },
+    if (response.status === 201) {
+        alert('등록 성공')
+        goList()
+    }
 }
 </script>
