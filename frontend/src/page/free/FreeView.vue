@@ -13,6 +13,7 @@
 
                 <BoardCard
                     :boardArticle="freeArticle"/>
+
                 <v-col
                     cols="auto"
                     class="text-right"
@@ -39,90 +40,71 @@
     </v-container>
 </template>
 
-<script>
+<script setup>
 import BoardCard from "@/components/board/BoardCard.vue";
 import {onMounted, ref} from "vue";
 import * as freeBoardApi from '@/api/board/boardFree'
 import {useRoute, useRouter} from "vue-router";
 import CheckModal from "@/components/modal/CheckModal.vue";
 
+const currentRoute = useRoute();
+const router = useRouter();
+const freeArticle = ref([]);
+const showPopup = ref(false);
+const modalType = ref()
 
-export default {
-    name: "FreeView",
-    components: {
-        CheckModal,
-        BoardCard
-    },
-    setup() {
-        const currentRoute = useRoute();
-        const router = useRouter();
-        const freeArticle = ref([]);
-        const showPopup = ref(false);
-        const modalType = ref()
+//getArticle
+const viewArticle = async () => {
+    const boardNo = currentRoute.params.boardNo;
+    const response = await freeBoardApi.getFreeArticle(boardNo);
+    freeArticle.value = response.data.data
+}
 
-        //getArticle
-        const viewArticle = async () => {
-            const boardNo = currentRoute.params.boardNo;
-            const response = await freeBoardApi.getFreeArticle(boardNo);
-            freeArticle.value = response.data.data
-        }
+//뒤로가기
+const goList = () => {
+    router.push('/free');
+}
 
-        //뒤로가기
-        const goList = () => {
-            router.push('/free');
-        }
+//팝업표시
+const deleteArticleConfirm = () => {
+    modalType.value = 'DELETE'
+    showPopup.value = true;
+}
 
-        //팝업표시
-        const deleteArticleConfirm = () => {
-            modalType.value = 'DELETE'
-            showPopup.value = true;
-        }
+const modifyArticleConfirm = () => {
+    modalType.value = 'MODIFY'
+    showPopup.value = true;
+}
 
-        const modifyArticleConfirm = () => {
-            modalType.value = 'MODIFY'
-            showPopup.value = true;
-        }
+//컨펌 핸들러
+const confirmHandler = (event) => {
+    if (event.modalType === 'DELETE') {
+        // 삭제 처리 callback
+        deleteArticle(freeArticle.value.boardNo)
+    } else if (event.modalType === 'MODIFY') {
+        // 수정 처리
+        console.log('Event Modify!!')
+    }
+    showPopup.value = !showPopup.value
+}
 
-        const confirmHandler = (event) => {
-            if (event.modalType === 'DELETE') {
-                // 삭제 처리
-                deleteArticle(freeArticle.value.boardNo)
-                console.log('Event Delete!!')
-            } else if (event.modalType === 'MODIFY') {
-                // 수정 처리
-                console.log('Event Modify!!')
-            }
-            showPopup.value = !showPopup.value
-        }
+//취소 핸들러
+const cancelHandler = () => {
+    showPopup.value = !showPopup.value
+}
 
-        //취소 핸들러
-        const cancelHandler = () => {
-            showPopup.value = !showPopup.value
-        }
+//게시글 삭제
+const deleteArticle = async (boardNo) => {
+    const response = await freeBoardApi.deleteArticle(boardNo);
 
-        //게시글 삭제
-        const deleteArticle = async (boardNo) => {
-            const response = await freeBoardApi.deleteArticle(boardNo);
-
-            if (response.status === 204) {
-                goList();
-            }
-        }
-
-        onMounted(() => {
-            viewArticle();
-        })
-
-        return {
-            freeArticle,
-            goList,
-            showPopup,
-            deleteArticleConfirm,
-            modifyArticleConfirm,
-            confirmHandler,
-            cancelHandler,
-            modalType
-        }
+    if (response.status === 204) {
+        alert('삭제 완료')
+        goList();
     }
 }
+
+onMounted(() => {
+    viewArticle();
+})
+
 </script>

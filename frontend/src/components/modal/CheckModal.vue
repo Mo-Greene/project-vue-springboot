@@ -72,6 +72,7 @@ const cancelDelete = () => {
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
+    z-index: 1;
     align-items: center;
 }
 

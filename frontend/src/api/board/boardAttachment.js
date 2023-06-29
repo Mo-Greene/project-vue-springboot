@@ -1,6 +1,16 @@
 import http from "@/api/http";
 
 /**
+ * 게시글 삭제
+ * @param boardNo
+ * @returns {Promise<axios.AxiosResponse<any>>}
+ */
+export async function deleteArticle(boardNo) {
+    return http.delete('/attachment/delete/' + boardNo)
+}
+
+
+/**
  * 자료실 검색
  * @param keyword
  * @param startDate
