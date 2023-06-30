@@ -92,6 +92,22 @@ public class NoticeController {
     }
 
     /**
+     * 수정페이지 조회(조회수 증가x)
+     * @param boardNo
+     * @return
+     */
+    @GetMapping("/modify/{boardNo}")
+    public ResponseEntity<ApiResponseDTO<?>> modifyNoticeArticle(@PathVariable Long boardNo) {
+
+        ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()
+                .httpStatus(HttpStatus.OK)
+                .data(noticeService.modifyNoticeArticle(boardNo))
+                .build();
+
+        return new ResponseEntity<>(apiResponseDTO, HttpStatus.OK);
+    }
+
+    /**
      * 공지게시글 수정
      * @param boardNo
      * @param boardDTO

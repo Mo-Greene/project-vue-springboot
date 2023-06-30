@@ -8,7 +8,6 @@ import com.mogreene.backend.config.responseApi.ApiResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,6 +49,27 @@ public class AttachmentController {
                 .data("Created")
                 .build();
         return new ResponseEntity<>(apiResponseDTO, HttpStatus.CREATED);
+    }
+
+    /**
+     * 게시글 수정
+     * @param boardNo
+     * @param boardDTO
+     * @param files
+     */
+    @PutMapping("/modify/{boardNo}")
+    public ResponseEntity<ApiResponseDTO<?>> updateAttachment(@PathVariable Long boardNo,
+                                                              @RequestPart("boardDTO") BoardDTO boardDTO,
+                                                              @RequestPart("file") MultipartFile[] files) throws IOException {
+
+        boardDTO.setBoardNo(boardNo);
+        attachmentService.updateAttachment(boardDTO, files);
+
+        ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()
+                .httpStatus(HttpStatus.OK)
+                .data("Modify_OK")
+                .build();
+        return new ResponseEntity<>(apiResponseDTO, HttpStatus.OK);
     }
 
     /**
@@ -91,6 +110,22 @@ public class AttachmentController {
         ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()
                 .httpStatus(HttpStatus.OK)
                 .data(attachmentService.readAttachmentArticle(boardNo))
+                .build();
+
+        return new ResponseEntity<>(apiResponseDTO, HttpStatus.OK);
+    }
+
+    /**
+     * 수정페이지 조회 (조회수 증가x)
+     * @param boardNo
+     * @return
+     */
+    @GetMapping("/modify/{boardNo}")
+    public ResponseEntity<ApiResponseDTO<?>> modifyAttachmentArticle(@PathVariable Long boardNo) {
+
+        ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()
+                .httpStatus(HttpStatus.OK)
+                .data(attachmentService.modifyAttachmentArticle(boardNo))
                 .build();
 
         return new ResponseEntity<>(apiResponseDTO, HttpStatus.OK);

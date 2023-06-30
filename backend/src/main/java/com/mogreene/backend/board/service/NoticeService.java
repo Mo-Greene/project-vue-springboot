@@ -26,6 +26,9 @@ public interface NoticeService {
     //게시글 상세조회
     BoardDTO readNoticeArticle(Long boardNo);
 
+    //게시글 수정페이지(조회수 증가x)
+    BoardDTO modifyNoticeArticle(Long boardNo);
+
     //게시글 수정
     void updateNoticeArticle(BoardDTO boardDTO);
 

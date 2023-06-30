@@ -28,6 +28,12 @@ public interface AttachmentService {
     //자료실 상세조회
     BoardDTO readAttachmentArticle(Long boardNo);
 
+    //자료실 수정페이지
+    BoardDTO modifyAttachmentArticle(Long boardNo);
+
+    //자료실 수정
+    void updateAttachment(BoardDTO boardDTO, MultipartFile[] files) throws IOException;
+
     //게시글 삭제
     void deleteAttachmentArticle(Long boardNo);
 }

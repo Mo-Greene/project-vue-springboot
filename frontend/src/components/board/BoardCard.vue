@@ -37,10 +37,10 @@
         </div>
 
 
-        <div v-if="props.boardArticle.fileList !== null">
+        <div v-if="boardArticle.fileList !== null">
             <v-row>
                 <v-col>
-                    <div v-for="(file, i) in props.boardArticle.fileList"
+                    <div v-for="(file, i) in boardArticle.fileList"
                          :key="i">
                         <a
                             @click="fileDownload(file.fileNo, file.fileOriginalName)">

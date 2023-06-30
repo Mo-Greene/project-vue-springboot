@@ -21,7 +21,7 @@
                         icon="mdi-pencil-plus"
                         class="mr-2"
                         color="blue"
-                        @click="modifyArticleConfirm"
+                        @click="modifyArticle(noticeArticle.boardNo)"
                     ></v-btn>
                     <v-btn
                         icon="mdi-delete"
@@ -73,6 +73,11 @@ const deleteArticleConfirm = () => {
 const modifyArticleConfirm = () => {
     modalType.value = 'MODIFY'
     showPopup.value = true;
+}
+
+//게시글 수정페이지 이동
+const modifyArticle = (boardNo) => {
+    router.push('/notice/modify/' + boardNo)
 }
 
 //컨펌 핸들러

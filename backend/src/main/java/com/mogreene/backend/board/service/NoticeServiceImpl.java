@@ -68,6 +68,14 @@ public class NoticeServiceImpl implements NoticeService {
         return noticeRepository.readNoticeArticle(boardNo);
     }
 
+    //수정페이지 게시글조회 (조회수 증가x)
+    @Override
+    @Transactional(readOnly = true)
+    public BoardDTO modifyNoticeArticle(Long boardNo) {
+
+        return noticeRepository.readNoticeArticle(boardNo);
+    }
+
     //공지게시글 수정
     @Override
     public void updateNoticeArticle(BoardDTO boardDTO) {

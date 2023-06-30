@@ -114,12 +114,8 @@ public class FreeController {
     public ResponseEntity<ApiResponseDTO<?>> updateFreeArticle(@PathVariable Long boardNo,
                                                                @RequestBody BoardDTO boardDTO) {
 
-        log.info("modifyCheck!");
-        log.info("boardNo : " + boardNo);
-        log.info("boardDto : " + boardDTO);
-//
-//        boardDTO.setBoardNo(boardNo);
-//        freeService.updateFreeArticle(boardDTO);
+        boardDTO.setBoardNo(boardNo);
+        freeService.updateFreeArticle(boardDTO);
 
         ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()
                 .httpStatus(HttpStatus.OK)

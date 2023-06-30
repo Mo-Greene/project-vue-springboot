@@ -9,6 +9,8 @@ import FreeWrite from "@/page/free/FreeWrite.vue";
 import NoticeWrite from "@/page/notice/NoticeWrite.vue";
 import AttachmentWrite from "@/page/attachment/AttachmentWrite.vue";
 import FreeModify from "@/page/free/FreeModify.vue";
+import NoticeModify from "@/page/notice/NoticeModify.vue";
+import AttachmentModify from "@/page/attachment/AttachmentModify.vue";
 
 const routes = [
     {
@@ -47,6 +49,11 @@ const routes = [
         component: NoticeWrite
     },
     {
+        path: "/notice/modify/:boardNo",
+        name: "공지게시글 수정",
+        component: NoticeModify
+    },
+    {
         path: "/attachment",
         name: "자료실",
         component: Attachment
@@ -60,6 +67,11 @@ const routes = [
         path: "/attachment/write",
         name: "자료실 등록",
         component: AttachmentWrite
+    },
+    {
+        path: "/attachment/modify/:boardNo",
+        name: "자료실 수정",
+        component: AttachmentModify
     },
 ];
 

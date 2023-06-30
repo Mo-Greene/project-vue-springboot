@@ -1,6 +1,25 @@
 import http from "@/api/http";
 
 /**
+ * 게시글 수정
+ * @param boardNo
+ * @param boardDto
+ * @returns {Promise<axios.AxiosResponse<any>>}
+ */
+export async function updateNoticeArticle(boardNo, boardDto) {
+    return http.put('/notice/modify/' + boardNo, boardDto)
+}
+
+/**
+ * 수정페이지 게시글 조회 (조회수 증가 x)
+ * @param boardNo
+ * @returns {Promise<axios.AxiosResponse<any>>}
+ */
+export async function getModifyNoticeArticle(boardNo) {
+    return http.get('/notice/modify/' + boardNo)
+}
+
+/**
  * 게시글 삭제
  * @param boardNo
  * @returns {Promise<axios.AxiosResponse<any>>}

@@ -97,6 +97,44 @@ public class AttachmentServiceImpl implements AttachmentService {
         return boardDTO;
     }
 
+    //게시글 수정페이지 (조회수 증가x)
+    @Override
+    @Transactional(readOnly = true)
+    public BoardDTO modifyAttachmentArticle(Long boardNo) {
+
+        BoardDTO boardDTO = attachmentRepository.readAttachment(boardNo);
+        boardDTO.setFileList(fileRepository.getFileList(boardNo));
+
+        return boardDTO;
+    }
+
+    //게시글 수정
+    @Override
+    public void updateAttachment(BoardDTO boardDTO, MultipartFile[] files) throws IOException {
+
+        //base_board 수정시간 update
+        baseRepository.updateBaseBoard(boardDTO);
+
+        //board_attachment update
+        attachmentRepository.updateAttachmentArticle(boardDTO);
+
+        //attachment_file insert
+        for (MultipartFile file : files) {
+
+            //파일 존재하지 않을 경우 다음 파일
+            if (file.isEmpty()) {
+                continue;
+            }
+
+            //첨부파일 dto 생성
+            FileDTO fileDTO = fileUtils.saveAttachment(boardDTO, file);
+
+            //물리적 파일 저장
+            file.transferTo(new File(fileDTO.getFilePath()));
+            fileRepository.persistentFile(fileDTO);
+        }
+    }
+
     //게시글 삭제
     @Override
     public void deleteAttachmentArticle(Long boardNo) {

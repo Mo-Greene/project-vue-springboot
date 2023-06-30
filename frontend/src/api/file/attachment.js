@@ -12,3 +12,12 @@ export async function downloadFile(fileNo) {
         responseType: 'blob'
     })
 }
+
+/**
+ * 첨부파일 삭제
+ * @param fileNo
+ * @returns {Promise<axios.AxiosResponse<any>>}
+ */
+export async function deleteFile(fileNo) {
+    return http.delete('/files/delete/' + fileNo)
+}
