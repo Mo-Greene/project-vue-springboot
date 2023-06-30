@@ -1,10 +1,12 @@
 <template>
     <div class="text-center">
         <v-pagination
+            size="small"
             v-model="page"
-            :length="endPage"
             :total-visible="5"
+            :length="totalPage"
             rounded="circle"
+            @click="pagingHandler(page)"
         ></v-pagination>
     </div>
 </template>
@@ -13,14 +15,25 @@
 
 import {computed, ref} from "vue";
 
-const props = defineProps(['pagination'])
+const props = defineProps({
+    pagination: {
+        page: Number,
+        size: Number,
+        startPage: Number,
+        endPage: Number,
+        total: Number
+    }
+})
 
-//props
-//현재 페이지
+const emit = defineEmits(['pageChange'])
+
 const page = ref(props.pagination.page);
-//총 페이지
-const endPage = computed(() => {
-    props.pagination.endPage
-});
 
+const totalPage = computed(() => props.pagination.endPage)
+
+//페이징 핸들러
+const pagingHandler = (page) => {
+
+    emit('pageChange', { page })
+}
 </script>

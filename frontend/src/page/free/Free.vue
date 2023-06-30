@@ -15,7 +15,7 @@
             </v-card-item>
         </v-card>
         <Pagination
-            :pagination="pagination"/>
+            :pagination="pagination" @pageChange="pageChangeHandler"/>
     </v-container>
     <v-row justify="end">
         <v-col cols="2" offset="2">
@@ -42,7 +42,7 @@ import SearchModal from "@/components/modal/SearchModal.vue";
 
 const boardList = ref([])
 const pagination = ref([])
-const page = ref();
+const params = ref();
 const popupTriggers = ref({
     buttonTrigger: false,
 })
@@ -61,14 +61,24 @@ const freeList = async () => {
 
 //검색조건 핸들러
 const searchQueryHandler = async (object) => {
-    const keyword = object.keyword;
-    const startDate = object.startDate;
-    const endDate = object.endDate;
+    params.keyword = object.keyword;
+    params.startDate = object.startDate;
+    params.endDate = object.endDate;
 
-    const response = await freeBoardApi.getFreeListWithQuery(keyword, startDate, endDate);
+    const response = await freeBoardApi.getFreeListWithQuery(params);
     boardList.value = response.data.data.freeList;
+    pagination.value = response.data.data.pagination;
 
     popupTriggers.value.buttonTrigger = false;
+}
+
+//페이지처리 핸들러
+const pageChangeHandler = async (event) => {
+    params.page = event.page;
+
+    const response = await freeBoardApi.getFreeListWithQuery(params);
+    boardList.value = response.data.data.freeList;
+    pagination.value = response.data.data.pagination;
 }
 
 onMounted(() => {

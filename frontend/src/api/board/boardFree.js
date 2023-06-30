@@ -22,18 +22,10 @@ export async function deleteArticle(boardNo) {
 /**
  * 자유게시판 검색
  * @returns {Promise<void>}
- * @param keyword
- * @param startDate
- * @param endDate
+ * @param params
  */
-export async function getFreeListWithQuery(keyword, startDate, endDate) {
-    return http.get('/free', {
-        params: {
-            keyword: keyword,
-            startDate: startDate,
-            endDate: endDate
-        }
-    })
+export async function getFreeListWithQuery(params) {
+    return http.get('/free', { params })
 }
 
 /**

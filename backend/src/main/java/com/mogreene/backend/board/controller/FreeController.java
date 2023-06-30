@@ -67,6 +67,8 @@ public class FreeController {
         freeObject.put("freeList", freeList);
         freeObject.put("pagination", pagination);
 
+        log.info("pagination : " + pagination);
+
         ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()
                 .httpStatus(HttpStatus.OK)
                 .data(freeObject)
