@@ -23,9 +23,6 @@ public class PageResponseDTO {
     //검색된 데이터 개수
     private int total;
 
-    //시작 페이지
-    private int startPage;
-
     //끝 페이지
     private int endPage;
 
@@ -34,10 +31,6 @@ public class PageResponseDTO {
         this.page = pageRequestDTO.getPage();
         this.size = pageRequestDTO.getSize();
         this.total = total;
-        this.endPage = (int)(Math.ceil((double) this.page / 10)) * 10;
-        this.startPage = endPage - 9;
-        /* 총 게시글이 endPage 보다 적을 경우 */
-        int last = (int)(Math.ceil((total / (double) size)));
-        this.endPage = Math.min(endPage, last);
+        this.endPage = (int)(Math.ceil((total / (double) size)));
     }
 }

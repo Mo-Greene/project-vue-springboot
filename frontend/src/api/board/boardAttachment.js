@@ -33,19 +33,11 @@ export async function deleteArticle(boardNo) {
 
 /**
  * 자료실 검색
- * @param keyword
- * @param startDate
- * @param endDate
  * @returns {Promise<void>}
+ * @param params
  */
-export async function getAttachmentListWithQuery(keyword, startDate, endDate) {
-    return http.get('/attachment', {
-        params: {
-            keyword: keyword,
-            startDate: startDate,
-            endDate: endDate
-        }
-    })
+export async function getAttachmentListWithQuery(params) {
+    return http.get('/attachment', { params })
 }
 
 /**

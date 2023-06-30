@@ -30,19 +30,11 @@ export async function deleteArticle(boardNo) {
 
 /**
  * 공지게시판 검색
- * @param keyword
- * @param startDate
- * @param endDate
  * @returns {Promise<void>}
+ * @param params
  */
-export async function getNoticeListWithQuery(keyword, startDate, endDate) {
-    return http.get('/notice', {
-        params: {
-            keyword: keyword,
-            startDate: startDate,
-            endDate: endDate
-        }
-    })
+export async function getNoticeListWithQuery(params) {
+    return http.get('/notice', { params })
 }
 
 

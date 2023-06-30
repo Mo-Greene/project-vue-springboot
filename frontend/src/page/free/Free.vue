@@ -14,8 +14,10 @@
                 <BoardTable :boardList="boardList"/>
             </v-card-item>
         </v-card>
+
         <Pagination
             :pagination="pagination" @pageChange="pageChangeHandler"/>
+
     </v-container>
     <v-row justify="end">
         <v-col cols="2" offset="2">
@@ -37,7 +39,7 @@
 import BoardTable from "@/components/board/BoardTable.vue";
 import {onMounted, ref} from "vue";
 import * as freeBoardApi from '@/api/board/boardFree'
-import Pagination from "@/components/layout/Pagination.vue";
+import Pagination from '@/components/layout/Pagination.vue'
 import SearchModal from "@/components/modal/SearchModal.vue";
 
 const boardList = ref([])

@@ -14,6 +14,10 @@
                 <BoardTable :boardList="boardList"/>
             </v-card-item>
         </v-card>
+
+        <Pagination
+            :pagination="pagination" @pageChange="pageChangeHandler"/>
+
     </v-container>
     <v-row justify="end">
         <v-col cols="2" offset="2">
@@ -25,7 +29,8 @@
             <v-btn
                 icon="mdi-pencil"
                 color="success"
-                @click="$router.push('/notice/write')"></v-btn>
+                @click="$router.push('/notice/write')"
+            ></v-btn>
         </v-col>
     </v-row>
 </template>
@@ -35,10 +40,11 @@ import {onMounted, ref} from "vue";
 import * as noticeBoardApi from '@/api/board/boardNotice'
 import BoardTable from "@/components/board/BoardTable.vue";
 import SearchModal from "@/components/modal/SearchModal.vue";
+import Pagination from "@/components/layout/Pagination.vue";
 
 const boardList = ref([])
 const pagination = ref([])
-const page = ref();
+const params = ref();
 const popupTriggers = ref({
     buttonTrigger: false,
 })
@@ -57,14 +63,24 @@ const noticeList = async () => {
 
 //검색조건 핸들러
 const searchQueryHandler = async (object) => {
-    const keyword = object.keyword;
-    const startDate = object.startDate;
-    const endDate = object.endDate;
+    params.keyword = object.keyword;
+    params.startDate = object.startDate;
+    params.endDate = object.endDate;
 
-    const response = await noticeBoardApi.getNoticeListWithQuery(keyword, startDate, endDate);
+    const response = await noticeBoardApi.getNoticeListWithQuery(params);
     boardList.value = response.data.data.noticeList;
+    pagination.value = response.data.data.pagination;
 
     popupTriggers.value.buttonTrigger = false;
+}
+
+//페이지처리 핸들러
+const pageChangeHandler = async (event) => {
+    params.page = event.page;
+
+    const response = await noticeBoardApi.getNoticeListWithQuery(params);
+    boardList.value = response.data.data.noticeList;
+    pagination.value = response.data.data.pagination;
 }
 
 onMounted(() => {
