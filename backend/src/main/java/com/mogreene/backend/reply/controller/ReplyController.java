@@ -34,8 +34,10 @@ public class ReplyController {
     public ResponseEntity<ApiResponseDTO<?>> postReply(@PathVariable Long boardNo,
                                                        @RequestBody ReplyDTO replyDTO) {
 
-        replyDTO.setBoardNo(boardNo);
-        replyService.postReply(replyDTO);
+        log.info("boardNo : " + boardNo);
+        log.info("replyDto : " + replyDTO);
+//        replyDTO.setBoardNo(boardNo);
+//        replyService.postReply(replyDTO);
 
         ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()
                 .httpStatus(HttpStatus.CREATED)
