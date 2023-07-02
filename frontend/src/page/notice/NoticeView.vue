@@ -11,7 +11,8 @@
                     @confirm="confirmHandler"
                     @cancel="cancelHandler"/>
 
-                <BoardCard :boardArticle="noticeArticle"/>
+                <BoardCard
+                    :boardArticle="noticeArticle"/>
 
                 <v-col
                     cols="auto"
@@ -34,6 +35,12 @@
                         @click="goList"
                     ></v-btn>
                 </v-col>
+
+                <v-divider></v-divider>
+
+                <ReplyWrite
+                    @postReply="postReplyHandler"/>
+
             </v-card-item>
         </v-card>
     </v-container>
@@ -43,8 +50,10 @@
 import BoardCard from "@/components/board/BoardCard.vue";
 import {onMounted, ref} from "vue";
 import * as noticeBoardApi from '@/api/board/boardNotice'
+import * as replyApi from '@/api/reply/reply'
 import {useRoute, useRouter} from "vue-router";
 import CheckModal from "@/components/modal/CheckModal.vue";
+import ReplyWrite from "@/components/reply/ReplyWrite.vue";
 
 const currentRoute = useRoute();
 const router = useRouter();
@@ -105,6 +114,18 @@ const deleteArticle = async (boardNo) => {
         alert('삭제 완료')
         goList();
     }
+}
+
+//댓글 핸들러
+const postReplyHandler = async (event) => {
+    const replyDto = {};
+    replyDto.replyContent = event.reply.value;
+
+    //todo 작성자 필요! 로그인 세션처리
+    replyDto.replyWriter = 'Tester'
+
+    const response = await replyApi.postReply(boardNo, replyDto);
+    console.log(response)
 }
 
 onMounted(() => {
