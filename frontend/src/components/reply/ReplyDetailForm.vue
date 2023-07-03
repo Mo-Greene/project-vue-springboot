@@ -31,10 +31,10 @@
             <div class="pl-6">
                 {{ item.replyContent }}
             </div>
-            <div class="d-flex justify-end">
-                <v-btn class="mr-1" x-small outlined color="#356859"> 수정 </v-btn>
-                <v-btn class="mr-1" x-small outlined color="#356859"> 삭제 </v-btn>
-            </div>
+<!--            <div class="d-flex justify-end">-->
+<!--                <v-btn class="mr-1" x-small outlined color="#356859"> 수정 </v-btn>-->
+<!--                <v-btn class="mr-1" x-small outlined color="#356859"> 삭제 </v-btn>-->
+<!--            </div>-->
         </v-card-text>
 
 <!--        &lt;!&ndash; 수정 &ndash;&gt;-->
