@@ -43,7 +43,8 @@
                     <div v-for="(file, i) in boardArticle.fileList"
                          :key="i">
                         <a
-                            @click="fileDownload(file.fileNo, file.fileOriginalName)">
+                            @click="fileDownload(file.fileNo, file.fileOriginalName)"
+                            style="cursor: pointer">
                             {{ file.fileOriginalName }}
                         </a>
                     </div>

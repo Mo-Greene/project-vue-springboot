@@ -35,7 +35,9 @@
             >
                 <td>{{ board.boardNo }}</td>
                 <td>
-                    <a @click="$router.push('/' + parseCategory(board.categoryBoard) + '/' + board.boardNo)">
+                    <a
+                        @click="$router.push('/' + parseCategory(board.categoryBoard) + '/' + board.boardNo)"
+                        style="cursor: pointer">
                         {{ board.boardTitle }}
                     </a>
                 </td>
