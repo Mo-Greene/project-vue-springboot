@@ -31,6 +31,7 @@
                     v-for="board in boardList"
                     :key="board.boardNo"
                     class="text-center"
+                    style="font-size: small"
             >
                 <td>{{ board.boardNo }}</td>
                 <td>
@@ -66,7 +67,7 @@ const formatDateTime = (dateTime) => {
         let hour = date.getHours();
         let minute = date.getMinutes();
 
-        return year + "-" + padZero(month) + "-" + padZero(day) + ' ' + padZero(hour) + ':' + padZero(minute);
+        return year + "/" + padZero(month) + "/" + padZero(day) + ' ' + padZero(hour) + ':' + padZero(minute);
     } else {
         return "-";
     }

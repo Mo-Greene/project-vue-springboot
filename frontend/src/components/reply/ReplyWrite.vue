@@ -1,26 +1,29 @@
 <template>
     <v-container>
-        <v-form ref="replyForm">
-            <v-row class="text-center">
-                <v-col cols="12" class="d-flex justify-center align-center">
+        <v-card-text class="py-1">
+            <v-form ref="replyForm">
+                <div class="d-flex" style="font-size: small">
                     <v-textarea
                         prepend-inner-icon="mdi-comment"
                         counter
                         no-resize
+                        style="font-size: small"
                         class="mr-2"
-                        rows="3"
-                        label="댓글"
+                        rows="2"
+                        label="Comments"
                         v-model="reply"
                         :rules="replyWriteRules"
                     />
-                    <v-btn
-                        icon="mdi-pencil"
-                        color="success"
-                        @click="validation"
-                    ></v-btn>
-                </v-col>
-            </v-row>
-        </v-form>
+                    <div class="d-flex flex-column">
+                        <v-btn
+                            icon="mdi-pencil"
+                            color="success"
+                            @click="validation"
+                        ></v-btn>
+                    </div>
+                </div>
+            </v-form>
+        </v-card-text>
     </v-container>
 </template>
 
@@ -37,6 +40,7 @@ async function validation () {
 
     if (valid) {
         emit ('postReply', { reply })
+        replyForm.value.reset();
     }
 }
 

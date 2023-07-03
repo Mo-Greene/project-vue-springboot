@@ -1,16 +1,16 @@
 import { createWebHistory, createRouter } from "vue-router";
-import Free from '@/page/free/Free.vue';
-import Notice from '@/page/notice/Notice.vue';
-import Attachment from "@/page/attachment/Attachment.vue";
-import FreeView from "@/page/free/FreeView.vue";
-import NoticeView from "@/page/notice/NoticeView.vue";
-import AttachmentView from "@/page/attachment/AttachmentView.vue";
-import FreeWrite from "@/page/free/FreeWrite.vue";
-import NoticeWrite from "@/page/notice/NoticeWrite.vue";
-import AttachmentWrite from "@/page/attachment/AttachmentWrite.vue";
-import FreeModify from "@/page/free/FreeModify.vue";
-import NoticeModify from "@/page/notice/NoticeModify.vue";
-import AttachmentModify from "@/page/attachment/AttachmentModify.vue";
+const Free = () => import ('@/page/free/Free.vue');
+const Notice = () => import ('@/page/notice/Notice.vue');
+const Attachment = () => import ("@/page/attachment/Attachment.vue");
+const FreeView = () => import ("@/page/free/FreeView.vue");
+const NoticeView = () => import ("@/page/notice/NoticeView.vue");
+const AttachmentView = () => import ("@/page/attachment/AttachmentView.vue");
+const FreeWrite = () => import ("@/page/free/FreeWrite.vue");
+const NoticeWrite = () => import ("@/page/notice/NoticeWrite.vue");
+const AttachmentWrite = () => import ("@/page/attachment/AttachmentWrite.vue");
+const FreeModify = () => import ("@/page/free/FreeModify.vue");
+const NoticeModify = () => import ("@/page/notice/NoticeModify.vue");
+const AttachmentModify = () => import ("@/page/attachment/AttachmentModify.vue");
 
 const routes = [
     {

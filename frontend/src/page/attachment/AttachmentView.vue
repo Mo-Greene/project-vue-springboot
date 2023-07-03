@@ -40,6 +40,9 @@
                 <ReplyWrite
                     @postReply="postReplyHandler"/>
 
+                <ReplyList
+                    :commentList="commentList"/>
+
             </v-card-item>
         </v-card>
     </v-container>
@@ -53,18 +56,26 @@ import * as replyApi from '@/api/reply/reply'
 import {useRoute, useRouter} from "vue-router";
 import CheckModal from "@/components/modal/CheckModal.vue";
 import ReplyWrite from "@/components/reply/ReplyWrite.vue";
+import ReplyList from "@/components/reply/ReplyList.vue";
 
 const currentRoute = useRoute();
 const router = useRouter();
+const boardNo = currentRoute.params.boardNo;
 const attachmentArticle = ref([])
 const showPopup = ref(false);
 const modalType = ref()
+const commentList = ref();
 
 //getArticle
 const viewArticle = async () => {
-    const boardNo = currentRoute.params.boardNo;
     const response = await attachmentBoardApi.getAttachmentArticle(boardNo);
     attachmentArticle.value = response.data.data
+}
+
+//replyList
+const getReplyList = async () => {
+    const response = await replyApi.getReplyList(boardNo);
+    commentList.value = response.data.data;
 }
 
 //뒤로가기
@@ -125,11 +136,15 @@ const postReplyHandler = async (event) => {
     replyDto.replyWriter = 'Tester'
 
     const response = await replyApi.postReply(boardNo, replyDto);
-    console.log(response)
+    if (response.status === 201) {
+        const response = await replyApi.getReplyList(boardNo);
+        commentList.value = response.data.data;
+    }
 }
 
 onMounted(() => {
     viewArticle();
+    getReplyList();
 })
 
 </script>

@@ -36,49 +36,22 @@
 
     <!--댓글 조회-->
     <select id="getReplyList" resultType="ReplyDTO" parameterType="Long">
-        WITH RECURSIVE ReplyHierarchy AS (
-            SELECT
-                reply_no,
-                reply_content,
-                reply_writer,
-                reply_reg_date,
-                board_no,
-                parent_reply_no,
-                0 AS level
-
-            FROM v_reply_blind_tbl
-
-            WHERE
-                parent_reply_no IS NULL
-
-            UNION ALL
-
-            SELECT
-                r.reply_no,
-                r.reply_content,
-                r.reply_writer,
-                r.reply_reg_date,
-                r.board_no,
-                r.parent_reply_no,
-                rh.level + 1
-
-            FROM v_reply_blind_tbl r
-            INNER JOIN ReplyHierarchy rh
-                ON r.parent_reply_no = rh.reply_no
-        )
         SELECT
             reply_no,
             reply_content,
             reply_writer,
             reply_reg_date,
-            board_no, parent_reply_no,
-            level
+            board_no,
+            parent_reply_no
 
-        FROM ReplyHierarchy
+        FROM
+            reply
 
-        WHERE board_no = #{boardNo}
+        WHERE
+            board_no = #{boardNo}
 
-        ORDER BY level, reply_reg_date
+        ORDER BY
+            reply_reg_date DESC
         ;
     </select>
 
