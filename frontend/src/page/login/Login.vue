@@ -44,6 +44,7 @@ const loginForm = ref();
 //login Logic
 const login = () => {
     // Your login logic here
+    alert('log in!')
     console.log('event start!')
 }
 
