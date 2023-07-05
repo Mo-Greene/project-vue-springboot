@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mogreene.backend.reply.repository.ReplyRepository">
+
+    <!--댓글 등록-->
+    <insert id="postReply" parameterType="replyDto">
+        <if test="parentReplyNo != null">
+            INSERT INTO
+                reply(
+                    reply_content,
+                    reply_writer,
+                    board_no,
+                    parent_reply_no
+                )
+
+            VALUES
+                (#{replyContent},
+                #{replyWriter},
+                #{boardNo},
+                #{parentReplyNo})
+        </if>
+        <if test="parentReplyNo == null">
+            INSERT INTO
+                reply(
+                    reply_content,
+                    reply_writer,
+                    board_no
+                )
+
+            VALUES
+                (#{replyContent},
+                #{replyWriter},
+                #{boardNo})
+        </if>
+    </insert>
+
+    <!--댓글 조회-->
+    <select id="getReplyList" resultType="ReplyDTO" parameterType="Long">
+        SELECT
+            reply_no,
+            reply_content,
+            reply_writer,
+            reply_reg_date,
+            board_no,
+            parent_reply_no
+
+        FROM
+            reply
+
+        WHERE
+            board_no = #{boardNo}
+
+        ORDER BY
+            reply_reg_date DESC
+        ;
+    </select>
+
+    <!--댓글 수정-->
+    <update id="updateReply" parameterType="replyDto">
+        UPDATE
+            v_reply_blind_tbl
+
+        SET
+            reply_content = #{replyContent}
+
+        WHERE
+            reply_no = #{replyNo}
+        ;
+    </update>
+
+    <!--댓글 비활성화(삭제)-->
+    <update id="disableReply" parameterType="Long">
+        UPDATE
+            v_reply_blind_tbl
+
+        SET
+            reply_blind = 0
+
+        WHERE
+            reply_no = #{replyNo}
+        ;
+    </update>
+</mapper>

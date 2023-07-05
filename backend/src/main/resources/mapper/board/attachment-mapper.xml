@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mogreene.backend.board.repository.AttachmentRepository">
+
+    <!--동적조회쿼리-->
+    <sql id="search">
+        <where>
+            <if test="keyword != null and keyword.length > 0">
+                ba.attachment_title LIKE CONCAT('%', #{keyword}, '%')
+                OR ba.attachment_content LIKE CONCAT('%', #{keyword}, '%')
+                OR ba.attachment_writer LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+            <if test="startDate != null and endDate != null">
+                <trim prefix="and">
+                    bb.board_reg_date BETWEEN date(#{startDate}) AND date(#{endDate})
+                </trim>
+            </if>
+        </where>
+    </sql>
+
+    <!--게시글 개수-->
+    <select id="totalAttachmentCount" resultType="int">
+        SELECT
+            COUNT(ba.board_no)
+
+        FROM board_attachment ba
+        LEFT JOIN base_board bb
+            ON bb.board_no = ba.board_no
+
+        <include refid="search"/>
+        ;
+    </select>
+
+    <!--자료실 조회-->
+    <select id="getAttachmentArticle" resultType="BoardDto">
+        SELECT
+            ba.board_no AS boardNo,
+            ba.attachment_title AS boardTitle,
+            ba.attachment_writer AS boardWriter,
+            bb.board_reg_date AS boardRegDate,
+            bb.board_mod_date AS boardModDate,
+            bb.board_view AS boardView,
+            bb.category_board AS categoryBoard
+
+        FROM board_attachment ba
+        LEFT JOIN base_board bb
+            ON bb.board_no = ba.board_no
+
+        <include refid="search"/>
+
+        ORDER BY
+            ba.board_no DESC
+
+        LIMIT #{skip}, #{size}
+        ;
+    </select>
+
+    <!--자료실 상세조회-->
+    <select id="readAttachment" resultType="BoardDto" parameterType="Long">
+        SELECT
+            ba.board_no AS boardNo,
+            ba.attachment_title AS boardTitle,
+            ba.attachment_writer AS boardWriter,
+            ba.attachment_content AS boardContent,
+            bb.board_reg_date AS boardRegDate,
+            bb.board_mod_date AS boardModDate,
+            bb.board_view AS boardView,
+            bb.category_board AS categoryBoard
+
+        FROM board_attachment ba
+        LEFT JOIN base_board bb
+            ON ba.board_no = bb.board_no
+
+        WHERE
+            ba.board_no = #{boardNo}
+        ;
+    </select>
+
+    <!--자료실 등록-->
+    <insert id="postAttachmentArticle" parameterType="BoardDto">
+        INSERT INTO
+            board_attachment(
+            attachment_title,
+            attachment_content,
+            attachment_writer,
+            board_no)
+        VALUES
+            (#{boardTitle},
+             #{boardContent},
+             #{boardWriter},
+             #{boardNo})
+        ;
+    </insert>
+
+    <!--자료실 수정-->
+    <update id="updateAttachmentArticle" parameterType="BoardDto">
+        UPDATE
+            board_attachment
+
+        SET
+            attachment_title = #{boardTitle},
+            attachment_writer = #{boardWriter},
+            attachment_content = #{boardContent}
+
+        WHERE
+            board_no = #{boardNo}
+        ;
+    </update>
+</mapper>
