@@ -6,6 +6,7 @@ import com.mogreene.backend.jwt.JwtFilter;
 import com.mogreene.backend.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -81,6 +82,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/api/login").permitAll()
                 .antMatchers("/api/signup").permitAll()
+                .antMatchers(
+                        HttpMethod.GET, "/**").permitAll()
                 .anyRequest().authenticated()
 
                 //JwtFilter 적용 => Username, Password 인증 전 Jwt filter 실행

@@ -12,20 +12,11 @@
                     <v-container>
                         <v-row>
                             <v-col
-                                cols="12"
-                                md="6">
+                                cols="12">
                                 <v-text-field
                                         label="Title"
                                         v-model="boardTitle"
                                         :rules="boardTitleRules"
-                                />
-                            </v-col>
-                            <!--todo : 후에 작성자 삭제 시 md=6만 제거-->
-                            <v-col cols="12"
-                                   md="6">
-                                <v-text-field
-                                    label="Writer"
-                                    v-model="boardWriter"
                                 />
                             </v-col>
 

@@ -33,7 +33,7 @@ public class JwtAccessDeniedHandler implements AccessDeniedHandler {
                        HttpServletResponse response,
                        AccessDeniedException accessDeniedException) throws IOException, ServletException {
 
-        log.info("403(Access Denied) error");
+        log.error("403(Access Denied) error");
 
         response.sendError(HttpServletResponse.SC_FORBIDDEN, "필요한 권한이 없는 상태에서 접근하여 오류가 발생하였습니다.");
     }

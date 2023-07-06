@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,7 +39,9 @@ public class NoticeController {
      * @return
      */
     @PostMapping("")
-    public ResponseEntity<ApiResponseDTO<?>> postFreeArticle(@RequestBody BoardDTO boardDto) {
+    @PreAuthorize("hasAnyRole('USER')")
+    public ResponseEntity<ApiResponseDTO<?>> postNoticeArticle(@RequestBody BoardDTO boardDto,
+                                                               final Authentication authentication) {
 
         noticeService.postNoticeArticle(boardDto);
 
@@ -53,7 +57,7 @@ public class NoticeController {
      * @return
      */
     @GetMapping("")
-    public ResponseEntity<ApiResponseDTO<?>> getFreeArticle(@Valid PageRequestDTO pageRequestDTO,
+    public ResponseEntity<ApiResponseDTO<?>> getNoticeArticle(@Valid PageRequestDTO pageRequestDTO,
                                                             BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
@@ -81,7 +85,7 @@ public class NoticeController {
      * @return
      */
     @GetMapping("/{boardNo}")
-    public ResponseEntity<ApiResponseDTO<?>> readFreeArticle(@PathVariable Long boardNo) {
+    public ResponseEntity<ApiResponseDTO<?>> readNoticeArticle(@PathVariable Long boardNo) {
 
         ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()
                 .httpStatus(HttpStatus.OK)
@@ -114,7 +118,7 @@ public class NoticeController {
      * @return
      */
     @PutMapping("/modify/{boardNo}")
-    public ResponseEntity<ApiResponseDTO<?>> updateFreeArticle(@PathVariable Long boardNo,
+    public ResponseEntity<ApiResponseDTO<?>> updateNoticeArticle(@PathVariable Long boardNo,
                                                                @RequestBody BoardDTO boardDTO) {
 
         boardDTO.setBoardNo(boardNo);
@@ -134,7 +138,7 @@ public class NoticeController {
      * @return
      */
     @DeleteMapping("/delete/{boardNo}")
-    public ResponseEntity<ApiResponseDTO<?>> deleteFreeArticle(@PathVariable Long boardNo) {
+    public ResponseEntity<ApiResponseDTO<?>> deleteNoticeArticle(@PathVariable Long boardNo) {
 
         noticeService.deleteNoticeArticle(boardNo);
 

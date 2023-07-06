@@ -5,9 +5,7 @@ import com.mogreene.backend.user.dto.LoginDTO;
 import com.mogreene.backend.user.dto.UserDTO;
 import com.mogreene.backend.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.javassist.NotFoundException;
 import org.apache.ibatis.javassist.bytecode.DuplicateMemberException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

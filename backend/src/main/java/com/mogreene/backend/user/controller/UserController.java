@@ -85,8 +85,6 @@ public class UserController {
     public ResponseEntity<ApiResponseDTO<?>> findUserByUsername(final Authentication authentication) throws UserPrincipalNotFoundException {
         Long userNo = ((UserDTO) authentication.getPrincipal()).getUserNo();
 
-        log.info("authentication : " + ((UserDTO)authentication.getPrincipal()).getUsername());
-
         UserDTO findUser = userService.findByUserNo(userNo);
 
         ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()

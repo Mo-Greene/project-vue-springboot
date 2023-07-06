@@ -33,7 +33,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
                          HttpServletResponse response,
                          AuthenticationException authException) throws IOException {
 
-        log.info("401(Unauthorized) error");
+        log.error("401(Unauthorized) error");
 
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
     }

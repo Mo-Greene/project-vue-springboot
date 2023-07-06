@@ -6,7 +6,7 @@
                     <v-text-field
                         variant="outlined"
                         v-model="username"
-                        label="User Name"
+                        label="username"
                         :rules="usernameRules"
                     ></v-text-field>
 
@@ -19,7 +19,6 @@
                     <a href="#" class="text-body-2 font-weight-regular">Forgot Password?</a>
 
                     <v-btn
-                        type="submit"
                         color="primary"
                         block
                         class="mt-2"
@@ -35,6 +34,7 @@
 
 
 <script setup>
+import * as loginApi from '@/api/login/login'
 import {ref} from "vue";
 
 const username = ref();
@@ -42,10 +42,10 @@ const password = ref();
 const loginForm = ref();
 
 //login Logic
-const login = () => {
+const login = async () => {
     // Your login logic here
-    alert('log in!')
-    console.log('event start!')
+    const response = await loginApi.login(username.value, password.value);
+    console.log(response.data)
 }
 
 //Validation loginForm
