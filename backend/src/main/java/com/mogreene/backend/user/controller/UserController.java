@@ -1,6 +1,7 @@
 package com.mogreene.backend.user.controller;
 
 import com.mogreene.backend.config.responseApi.ApiResponseDTO;
+import com.mogreene.backend.jwt.JwtFilter;
 import com.mogreene.backend.user.dto.LoginDTO;
 import com.mogreene.backend.user.dto.UserDTO;
 import com.mogreene.backend.user.service.UserService;
@@ -63,7 +64,7 @@ public class UserController {
         String token = userService.login(loginDTO);
 
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Authorization", "Bearer " + token);
+        httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + token);
 
         ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()
                 .httpStatus(HttpStatus.OK)
@@ -73,7 +74,7 @@ public class UserController {
     }
 
     /**
-     * 유저 조회
+     * 테스트용 유저 조회
      * @param authentication
      * @return
      * @throws UserPrincipalNotFoundException
@@ -83,6 +84,9 @@ public class UserController {
     @PreAuthorize("hasAnyRole('USER')")
     public ResponseEntity<ApiResponseDTO<?>> findUserByUsername(final Authentication authentication) throws UserPrincipalNotFoundException {
         Long userNo = ((UserDTO) authentication.getPrincipal()).getUserNo();
+
+        log.info("authentication : " + ((UserDTO)authentication.getPrincipal()).getUsername());
+
         UserDTO findUser = userService.findByUserNo(userNo);
 
         ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()

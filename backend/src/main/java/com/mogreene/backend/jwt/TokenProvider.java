@@ -1,8 +1,11 @@
 package com.mogreene.backend.jwt;
 
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -11,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.security.Key;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
@@ -24,15 +28,15 @@ import java.util.List;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class TokenProvider {
+public class TokenProvider implements InitializingBean {
 
     @Value("${jwt.secret}")
     private String secretKey;
 
     @Value("${jwt.token-validity-in-seconds}")
     private long tokenValidMillisecond;
-
     private final UserDetailsService userDetailsService;
+    private Key key;
 
     // SecretKey Base64로 인코딩
     @PostConstruct
@@ -40,6 +44,14 @@ public class TokenProvider {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
+    /**
+     * secret key 를 base64 디코드 하기위해 생성
+     */
+    @Override
+    public void afterPropertiesSet() {
+        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
+        this.key = Keys.hmacShaKeyFor(keyBytes);
+    }
 
     // JWT 토큰 생성
     public String createToken(Long userId, List<String> roles) {
@@ -50,7 +62,7 @@ public class TokenProvider {
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(now)
-                .signWith(SignatureAlgorithm.HS256, secretKey) // 암호화
+                .signWith(key, SignatureAlgorithm.HS256) // 암호화
                 .setExpiration(new Date(now.getTime() + tokenValidMillisecond)) // 토큰 만료일 설정
                 .compact();
     }
