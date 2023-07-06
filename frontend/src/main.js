@@ -3,12 +3,12 @@ import App from './App.vue'
 import router from './router'
 import vuetify from './plugins/vuetify'
 import {loadFonts} from './plugins/webfontloader'
-import store from './store/index'
+import { createPinia } from "pinia";
 
 loadFonts()
 
 const app = createApp(App)
+app.use(createPinia())
 app.use(router)
-app.use(store)
 app.use(vuetify)
 app.mount('#app')

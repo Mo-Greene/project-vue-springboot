@@ -84,6 +84,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/signup").permitAll()
                 .antMatchers(
                         HttpMethod.GET, "/**").permitAll()
+                .antMatchers(
+                        HttpMethod.OPTIONS, "/**").permitAll()
                 .anyRequest().authenticated()
 
                 //JwtFilter 적용 => Username, Password 인증 전 Jwt filter 실행
