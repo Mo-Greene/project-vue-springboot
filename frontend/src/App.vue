@@ -10,17 +10,22 @@
     </v-app>
 </template>
 
-<script>
+<script setup>
 import NavBar from "@/components/NavBar.vue";
 import AppBar from "@/components/AppBar.vue";
+import {useLoginStore} from "@/store/login";
+import {useCookies} from "vue3-cookies";
 
-export default {
-    name: "App",
-    components: {
-        AppBar,
-        NavBar
-    }
+const loginStore = useLoginStore();
+const { cookies } = useCookies();
+
+if (cookies.get('token')) {
+    console.log('token event!')
+    loginStore.setToken(cookies.get('token'))
 }
+console.log('cookie : ' + cookies.get('token'));
+console.log('store : ' + loginStore.token)
+
 </script>
 
 <style scoped>

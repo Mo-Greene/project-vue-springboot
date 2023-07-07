@@ -4,6 +4,9 @@ import com.mogreene.backend.jwt.TokenProvider;
 import com.mogreene.backend.user.dto.LoginDTO;
 import com.mogreene.backend.user.dto.UserDTO;
 import com.mogreene.backend.user.repository.UserRepository;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.javassist.bytecode.DuplicateMemberException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -58,6 +61,18 @@ public class UserService {
         }
 
         return tokenProvider.createToken(userDTO.getUserNo(), Collections.singletonList(userDTO.getRole()));
+    }
+
+    /**
+     * 로그인 후 유저 객체 리턴
+     * @param loginDTO
+     * @return
+     * @throws LoginException
+     */
+    public UserDTO findByUsername(LoginDTO loginDTO) throws LoginException {
+
+        return userRepository.findUserByUsername(loginDTO.getUsername())
+                .orElseThrow(() -> new LoginException("잘못된 아이디 입니다."));
     }
 
     /**

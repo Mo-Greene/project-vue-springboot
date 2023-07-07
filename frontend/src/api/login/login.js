@@ -1,5 +1,4 @@
 import http from "@/api/http";
-import {useLoginStore} from '@/store/login'
 
 /**
  * 로그인 api
@@ -12,14 +11,5 @@ export async function login(username, password) {
         username: username,
         password: password
     }
-    const response = await http.post('/api/login', loginDto);
-
-    //pinia 적용
-    const loginStore = useLoginStore();
-
-    if (response.status === 200) {
-        loginStore.setToken(response.data.data);
-    }
-
-    return response;
+    return await http.post('/api/login', loginDto);
 }

@@ -1,21 +1,36 @@
 <template>
-    <v-app-bar color="" prominent>
-        <v-btn
+    <v-app-bar prominent>
+        <router-link
+                to="/login"
+        >
+            <v-btn
+                v-if="!loginStore.username"
                 variant="text"
-                icon="mdi-dots-horizontal"
+                icon="mdi-login"
+                class="login"
+                color="black"
+            ></v-btn>
+        </router-link>
+        <v-btn
+            v-if="loginStore.username"
+            icon="mdi-logout"
+            class="logout"
+            @click="logout()"
         ></v-btn>
 
-        <div id="nav">
-            <router-link to="/free">자유</router-link> |
-            <router-link to="/notice">공지</router-link> |
-            <router-link to="/attachment">자료실</router-link> |
-            <router-link to="/login">로그인</router-link>
-        </div>
     </v-app-bar>
 </template>
 
-<script>
-export default {
+<script setup>
+import {useLoginStore} from "@/store/login";
 
+const loginStore = useLoginStore();
+
+/**
+ * 로그아웃
+ */
+const logout = () => {
+    loginStore.setUser(null);
+    sessionStorage.removeItem('user')
 }
 </script>

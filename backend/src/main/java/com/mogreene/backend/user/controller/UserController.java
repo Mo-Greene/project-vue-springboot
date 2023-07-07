@@ -2,9 +2,11 @@ package com.mogreene.backend.user.controller;
 
 import com.mogreene.backend.config.responseApi.ApiResponseDTO;
 import com.mogreene.backend.jwt.JwtFilter;
+import com.mogreene.backend.jwt.TokenProvider;
 import com.mogreene.backend.user.dto.LoginDTO;
 import com.mogreene.backend.user.dto.UserDTO;
 import com.mogreene.backend.user.service.UserService;
+import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.javassist.bytecode.DuplicateMemberException;
@@ -16,7 +18,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.security.auth.login.LoginException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.nio.file.attribute.UserPrincipalNotFoundException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @name : UserController
@@ -31,6 +37,7 @@ import java.nio.file.attribute.UserPrincipalNotFoundException;
 public class UserController {
 
     private final UserService userService;
+    private final TokenProvider tokenProvider;
 
     /**
      * 회원가입 로직
@@ -59,18 +66,19 @@ public class UserController {
      */
     // TODO: 2023/07/05 예외처리 뽑아주자
     @PostMapping("/login")
-    public ResponseEntity<ApiResponseDTO<?>> login(@RequestBody LoginDTO loginDTO) throws LoginException {
+    public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) throws LoginException {
 
         String token = userService.login(loginDTO);
+        UserDTO userDTO = userService.findByUsername(loginDTO);
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + token);
 
-        ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()
-                .httpStatus(HttpStatus.OK)
-                .data(token)
-                .build();
-        return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(apiResponseDTO);
+        Map<String, Object> response = new HashMap<>();
+        response.put("token", token);
+        response.put("user", userDTO);
+
+        return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(response);
     }
 
     /**
