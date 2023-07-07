@@ -46,6 +46,9 @@ public class BoardDTO {
     //카테고리 분류
     private CategoryBoard categoryBoard;
 
+    //유저 번호
+    private Long userNo;
+
     //파일 리스트
     private List<FileDTO> fileList;
 }

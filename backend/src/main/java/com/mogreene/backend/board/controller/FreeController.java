@@ -120,8 +120,6 @@ public class FreeController {
                                                                @RequestBody BoardDTO boardDTO,
                                                                final Authentication authentication) {
 
-        boardDTO.setBoardNo(boardNo);
-        boardDTO.setBoardWriter(authentication.getName());
         freeService.updateFreeArticle(boardDTO);
 
         ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()
@@ -138,7 +136,9 @@ public class FreeController {
      * @return
      */
     @DeleteMapping("/delete/{boardNo}")
-    public ResponseEntity<ApiResponseDTO<?>> deleteFreeArticle(@PathVariable Long boardNo) {
+    @PreAuthorize("hasAnyRole('USER')")
+    public ResponseEntity<ApiResponseDTO<?>> deleteFreeArticle(@PathVariable Long boardNo,
+                                                               final Authentication authentication) {
 
         freeService.deleteFreeArticle(boardNo);
 

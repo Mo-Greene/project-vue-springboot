@@ -131,9 +131,6 @@ const postReplyHandler = async (event) => {
     const replyDto = {};
     replyDto.replyContent = event.reply.value;
 
-    //todo 작성자 필요! 로그인 세션처리
-    replyDto.replyWriter = 'Tester'
-
     const response = await replyApi.postReply(boardNo, replyDto);
     if (response.status === 201) {
         const response = await replyApi.getReplyList(boardNo);

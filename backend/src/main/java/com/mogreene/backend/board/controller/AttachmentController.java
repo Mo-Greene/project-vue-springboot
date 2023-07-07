@@ -68,9 +68,6 @@ public class AttachmentController {
                                                               @RequestPart(value = "file", required = false) MultipartFile[] files,
                                                               final Authentication authentication) throws IOException {
 
-        boardDTO.setBoardNo(boardNo);
-        boardDTO.setBoardWriter(authentication.getName());
-
         if (files == null) {
 
             attachmentService.updateAttachmentWithEmptyFiles(boardDTO);

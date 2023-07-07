@@ -37,4 +37,6 @@ public class ReplyDTO {
     //부모 댓글 번호
     private Long parentReplyNo;
 
+    //유저 번호(fk)
+    private Long userNo;
 }

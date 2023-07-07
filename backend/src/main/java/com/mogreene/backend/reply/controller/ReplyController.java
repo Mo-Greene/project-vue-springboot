@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,10 +33,11 @@ public class ReplyController {
      * @return
      */
     @PostMapping("/{boardNo}")
+    @PreAuthorize("hasAnyRole('USER')")
     public ResponseEntity<ApiResponseDTO<?>> postReply(@PathVariable Long boardNo,
-                                                       @RequestBody ReplyDTO replyDTO) {
+                                                       @RequestBody ReplyDTO replyDTO,
+                                                       final Authentication authentication) {
 
-        replyDTO.setBoardNo(boardNo);
         replyService.postReply(replyDTO);
 
         ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()
@@ -90,8 +93,10 @@ public class ReplyController {
      * @return
      */
     @PutMapping("/modify/{replyNo}")
+    @PreAuthorize("hasAnyRole('USER')")
     public ResponseEntity<ApiResponseDTO<?>> updateReply(@PathVariable Long replyNo,
-                                                         @RequestBody ReplyDTO replyDTO) {
+                                                         @RequestBody ReplyDTO replyDTO,
+                                                         final Authentication authentication) {
 
         replyDTO.setReplyNo(replyNo);
         replyService.updateReply(replyDTO);
@@ -109,7 +114,9 @@ public class ReplyController {
      * @return
      */
     @PutMapping("/disable/{replyNo}")
-    public ResponseEntity<ApiResponseDTO<?>> disableReply(@PathVariable Long replyNo) {
+    @PreAuthorize("hasAnyRole('USER')")
+    public ResponseEntity<ApiResponseDTO<?>> disableReply(@PathVariable Long replyNo,
+                                                          final Authentication authentication) {
 
         replyService.disableReply(replyNo);
 

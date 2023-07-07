@@ -2,9 +2,9 @@ package com.mogreene.backend.board.service;
 
 import com.mogreene.backend.board.dto.BoardDTO;
 import com.mogreene.backend.board.dto.page.PageRequestDTO;
+import com.mogreene.backend.board.repository.NoticeRepository;
 import com.mogreene.backend.board.dto.page.PageResponseDTO;
 import com.mogreene.backend.board.repository.BaseRepository;
-import com.mogreene.backend.board.repository.NoticeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

@@ -4,8 +4,6 @@ import com.mogreene.backend.board.dto.BoardDTO;
 import com.mogreene.backend.board.dto.page.PageRequestDTO;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.List;
-
 /**
  * @name : BaseRepository
  * @author : Mo-Greene

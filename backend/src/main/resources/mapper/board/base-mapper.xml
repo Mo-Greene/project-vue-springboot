@@ -5,12 +5,12 @@
     <!--부모게시글 등록-->
     <insert id="postBaseBoard" parameterType="BoardDto" useGeneratedKeys="true" keyProperty="boardNo">
         INSERT INTO
-            base_board(
-                category_board
-            )
+            base_board(category_board,
+                       user_no)
 
         VALUES
-            (#{categoryBoard})
+            (#{categoryBoard},
+             #{userNo})
         ;
     </insert>
 
