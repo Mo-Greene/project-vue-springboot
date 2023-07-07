@@ -54,8 +54,8 @@ public class TokenProvider implements InitializingBean {
     }
 
     // JWT 토큰 생성
-    public String createToken(Long userId, List<String> roles) {
-        Claims claims = Jwts.claims().setSubject(Long.toString(userId));
+    public String createToken(Long userNo, List<String> roles) {
+        Claims claims = Jwts.claims().setSubject(Long.toString(userNo));
         claims.put("roles", roles);
         Date now = new Date();
 

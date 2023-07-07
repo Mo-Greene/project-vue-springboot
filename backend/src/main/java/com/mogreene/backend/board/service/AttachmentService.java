@@ -34,6 +34,9 @@ public interface AttachmentService {
     //자료실 수정
     void updateAttachment(BoardDTO boardDTO, MultipartFile[] files) throws IOException;
 
+    //자료실 수정(파일x)
+    void updateAttachmentWithEmptyFiles(BoardDTO boardDTO);
+
     //게시글 삭제
     void deleteAttachmentArticle(Long boardNo);
 }

@@ -84,6 +84,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/signup").permitAll()
                 .antMatchers(
                         HttpMethod.GET, "/**").permitAll()
+                //todo 정리해서 블로그 적자 (cors prefilight)
                 .antMatchers(
                         HttpMethod.OPTIONS, "/**").permitAll()
                 .anyRequest().authenticated()

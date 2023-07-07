@@ -13,19 +13,11 @@
                         <v-row>
                             <v-col
                                     cols="12"
-                                    md="6">
+                            >
                                 <v-text-field
                                         label="Title"
                                         v-model="boardTitle"
                                         :rules="boardTitleRules"
-                                />
-                            </v-col>
-                            <!--todo : 후에 작성자 삭제 시 md=6만 제거-->
-                            <v-col cols="12"
-                                   md="6">
-                                <v-text-field
-                                        label="Writer"
-                                        v-model="boardWriter"
                                 />
                             </v-col>
 
@@ -139,8 +131,7 @@ const modifyArticle = () => {
     } else {
         const boardDto = {
             boardTitle: boardTitle.value,
-            boardContent: boardContent.value,
-            boardWriter: boardWriter.value
+            boardContent: boardContent.value
         };
 
         emit('modifyArticleSubmit', boardDto)

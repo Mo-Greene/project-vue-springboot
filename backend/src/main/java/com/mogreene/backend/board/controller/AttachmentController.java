@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -39,8 +41,10 @@ public class AttachmentController {
      * @param files
      */
     @PostMapping("")
+    @PreAuthorize("hasAnyRole('USER')")
     public ResponseEntity<ApiResponseDTO<?>> postAttachment(@RequestPart("boardDTO") BoardDTO boardDTO,
-                                                            @RequestPart("file") MultipartFile[] files) throws IOException {
+                                                            @RequestPart("file") MultipartFile[] files,
+                                                            final Authentication authentication) throws IOException {
 
         attachmentService.postAttachment(boardDTO, files);
 
@@ -58,12 +62,22 @@ public class AttachmentController {
      * @param files
      */
     @PutMapping("/modify/{boardNo}")
+    @PreAuthorize("hasAnyRole('USER')")
     public ResponseEntity<ApiResponseDTO<?>> updateAttachment(@PathVariable Long boardNo,
                                                               @RequestPart("boardDTO") BoardDTO boardDTO,
-                                                              @RequestPart("file") MultipartFile[] files) throws IOException {
+                                                              @RequestPart(value = "file", required = false) MultipartFile[] files,
+                                                              final Authentication authentication) throws IOException {
 
         boardDTO.setBoardNo(boardNo);
-        attachmentService.updateAttachment(boardDTO, files);
+        boardDTO.setBoardWriter(authentication.getName());
+
+        if (files == null) {
+
+            attachmentService.updateAttachmentWithEmptyFiles(boardDTO);
+        } else {
+
+            attachmentService.updateAttachment(boardDTO, files);
+        }
 
         ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()
                 .httpStatus(HttpStatus.OK)

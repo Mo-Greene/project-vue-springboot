@@ -118,10 +118,13 @@ public class NoticeController {
      * @return
      */
     @PutMapping("/modify/{boardNo}")
+    @PreAuthorize("hasAnyRole('USER')")
     public ResponseEntity<ApiResponseDTO<?>> updateNoticeArticle(@PathVariable Long boardNo,
-                                                               @RequestBody BoardDTO boardDTO) {
+                                                                 @RequestBody BoardDTO boardDTO,
+                                                                 final Authentication authentication) {
 
         boardDTO.setBoardNo(boardNo);
+        boardDTO.setBoardWriter(authentication.getName());
         noticeService.updateNoticeArticle(boardDTO);
 
         ApiResponseDTO<?> apiResponseDTO = ApiResponseDTO.builder()

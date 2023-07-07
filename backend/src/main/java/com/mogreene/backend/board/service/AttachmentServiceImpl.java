@@ -108,7 +108,7 @@ public class AttachmentServiceImpl implements AttachmentService {
         return boardDTO;
     }
 
-    //게시글 수정
+    //게시글 수정(파일 존재시)
     @Override
     public void updateAttachment(BoardDTO boardDTO, MultipartFile[] files) throws IOException {
 
@@ -133,6 +133,17 @@ public class AttachmentServiceImpl implements AttachmentService {
             file.transferTo(new File(fileDTO.getFilePath()));
             fileRepository.persistentFile(fileDTO);
         }
+    }
+
+    //게시글 수정 (파일x)
+    @Override
+    public void updateAttachmentWithEmptyFiles(BoardDTO boardDTO) {
+
+        //base_board 수정시간 update
+        baseRepository.updateBaseBoard(boardDTO);
+
+        //board_attachment update
+        attachmentRepository.updateAttachmentArticle(boardDTO);
     }
 
     //게시글 삭제
