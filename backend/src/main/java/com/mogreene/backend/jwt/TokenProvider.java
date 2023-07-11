@@ -90,10 +90,13 @@ public class TokenProvider implements InitializingBean {
 
             return !claims.getBody().getExpiration().before(new Date());
         } catch (SecurityException | MalformedJwtException | IllegalArgumentException exception) {
+            exception.printStackTrace();
             log.info("잘못된 Jwt 토큰입니다");
         } catch (ExpiredJwtException exception) {
+            exception.printStackTrace();
             log.info("만료된 Jwt 토큰입니다");
         } catch (UnsupportedJwtException exception) {
+            exception.printStackTrace();
             log.info("지원하지 않는 Jwt 토큰입니다");
         }
 

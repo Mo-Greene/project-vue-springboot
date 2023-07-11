@@ -16,13 +16,12 @@
                         label="password"
                         :rules="passwordRules"
                     ></v-text-field>
-                    <a href="#" class="text-body-2 font-weight-regular">Forgot Password?</a>
 
                     <v-btn
                         color="primary"
                         block
                         class="mt-2"
-                        @click="validation">Sign in</v-btn>
+                        @click="validation">Log in</v-btn>
                 </v-form>
                 <div class="mt-2">
                     <p class="text-body-2">Don't have an account? <a href="#">Sign Up</a></p>
@@ -38,14 +37,12 @@ import * as loginApi from '@/api/login/login'
 import {ref} from "vue";
 import {useLoginStore} from "@/store/login";
 import { useRouter } from "vue-router";
-import { useCookies } from "vue3-cookies";
 
 const username = ref();
 const password = ref();
 const loginForm = ref();
 const loginStore = useLoginStore();
 const router = useRouter();
-const { cookies } = useCookies();
 
 //login Logic
 const login = async () => {
@@ -54,18 +51,15 @@ const login = async () => {
         const response = await loginApi.login(username.value, password.value);
 
         if (response.status === 200) {
-            console.log('login : ' + response.data.token)
-            loginStore.setToken(response.data.token);
-            // loginStore.setUser(response.data.user.username)
-
-            //쿠키저장
-            cookies.set('token', response.data.token)
+            await loginStore.setToken(response.data.token);
+            localStorage.setItem('access_token', response.data.token)
+            await loginStore.getUserInfo();
 
             await router.push({path: '/'})
         }
 
     } catch (e) {
-        console.log(e)
+        alert(e.response.data.message)
     }
 }
 

@@ -6,7 +6,6 @@ import com.mogreene.backend.jwt.TokenProvider;
 import com.mogreene.backend.user.dto.LoginDTO;
 import com.mogreene.backend.user.dto.UserDTO;
 import com.mogreene.backend.user.service.UserService;
-import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.javassist.bytecode.DuplicateMemberException;
@@ -18,8 +17,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.security.auth.login.LoginException;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
 import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
@@ -82,7 +79,7 @@ public class UserController {
     }
 
     /**
-     * 테스트용 유저 조회
+     * 유저 조회
      * @param authentication
      * @return
      * @throws UserPrincipalNotFoundException
