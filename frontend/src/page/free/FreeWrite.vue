@@ -19,7 +19,6 @@ import BoardWrite from "@/components/board/BoardWrite.vue";
 const categoryBoard = 'FREE';
 const router = useRouter();
 
-//todo vuex로 빼기
 const goList = () => {
     router.push('/free')
 };

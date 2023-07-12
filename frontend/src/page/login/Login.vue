@@ -3,28 +3,33 @@
         <div class="d-flex align-center justify-center" style="height: 100vh">
             <v-sheet width="400" class="mx-auto">
                 <v-form fast-fail ref="loginForm">
-                    <v-text-field
-                        variant="outlined"
-                        v-model="username"
-                        label="username"
-                        :rules="usernameRules"
-                    ></v-text-field>
+                    <v-card-title style="text-align: center">
+                        Login
+                    </v-card-title>
+                    <v-card-item>
+                        <v-text-field
+                            variant="outlined"
+                            v-model="username"
+                            label="username"
+                            :rules="usernameRules"
+                        ></v-text-field>
 
-                    <v-text-field
-                        variant="outlined"
-                        v-model="password"
-                        label="password"
-                        :rules="passwordRules"
-                    ></v-text-field>
+                        <v-text-field
+                            variant="outlined"
+                            v-model="password"
+                            label="password"
+                            :rules="passwordRules"
+                        ></v-text-field>
 
-                    <v-btn
-                        color="primary"
-                        block
-                        class="mt-2"
-                        @click="validation">Log in</v-btn>
+                        <v-btn
+                            color="primary"
+                            block
+                            class="mt-2"
+                            @click="validation">Log in</v-btn>
+                    </v-card-item>
                 </v-form>
                 <div class="mt-2">
-                    <p class="text-body-2">Don't have an account? <a href="#">Sign Up</a></p>
+                    <p class="text-body-2">Don't have an account? <router-link to="/signup">Sign Up</router-link></p>
                 </div>
             </v-sheet>
         </div>

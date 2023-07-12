@@ -11,12 +11,12 @@
                 color="black"
             ></v-btn>
         </router-link>
-<!--        <v-btn-->
-<!--            v-if="loginStore.username"-->
-<!--            icon="mdi-logout"-->
-<!--            class="logout"-->
-<!--            @click="logout()"-->
-<!--        ></v-btn>-->
+        <v-btn
+            v-if="loginStore.username"
+            icon="mdi-logout"
+            class="logout"
+            @click="logout()"
+        ></v-btn>
 
     </v-app-bar>
 </template>
@@ -30,7 +30,6 @@ const loginStore = useLoginStore();
  * 로그아웃
  */
 const logout = () => {
-    loginStore.setUser(null);
-    sessionStorage.removeItem('user')
+    console.log('logout event!')
 }
 </script>

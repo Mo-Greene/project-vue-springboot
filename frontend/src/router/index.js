@@ -1,5 +1,6 @@
 import { createWebHistory, createRouter } from "vue-router";
 import Login from "@/page/login/Login.vue";
+import SignUp from "@/page/login/SignUp.vue";
 const Free = () => import ('@/page/free/Free.vue');
 const Notice = () => import ('@/page/notice/Notice.vue');
 const Attachment = () => import ("@/page/attachment/Attachment.vue");
@@ -18,6 +19,11 @@ const routes = [
         path: "/login",
         name: "로그인",
         component: Login
+    },
+    {
+        path: "/signup",
+        name: "회원가입",
+        component: SignUp
     },
     {
         path: "/free",

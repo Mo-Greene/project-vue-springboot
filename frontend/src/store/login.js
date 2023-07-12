@@ -1,7 +1,6 @@
 import {defineStore} from "pinia";
 import {ref} from "vue";
 import * as loginApi from '@/api/login/login'
-import router from "@/router";
 
 export const useLoginStore = defineStore("login", () => {
     //state
@@ -26,9 +25,8 @@ export const useLoginStore = defineStore("login", () => {
             username.value = response.data.data.username;
             role.value = response.data.data.role;
         } catch (e) {
-            alert(e);
+            console.log(e)
             localStorage.removeItem('access_token');
-            await router.push('/login');
         }
     }
 

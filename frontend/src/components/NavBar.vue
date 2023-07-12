@@ -6,17 +6,20 @@
             :permanent="true"
     >
         <v-list-item
-                prepend-avatar="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfIJrUhPALWv647IYdyMMfMVhU3ExHuKfaCAYvqdqDgjhvQCUylKLy7XZmsDMcZMrVcgg&usqp=CAU"
-                nav
-                style="font-size: small"
-        >Anonymous</v-list-item>
+            prepend-avatar="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfIJrUhPALWv647IYdyMMfMVhU3ExHuKfaCAYvqdqDgjhvQCUylKLy7XZmsDMcZMrVcgg&usqp=CAU"
+            nav
+            style="font-size: small"
+            v-if="username === null || username === undefined"
+        >Anonymous
+        </v-list-item>
 
         <v-list-item
             prepend-avatar="https://img1.daumcdn.net/thumb/C428x428/?scode=mtistory2&fname=https%3A%2F%2Ftistory1.daumcdn.net%2Ftistory%2F5349579%2Fattach%2F4338f0f2b6fc4a0b914efdd430c4c5b9"
             nav
             style="font-size: small"
-            v-if="username"
-        >{{ username }}</v-list-item>
+            v-else
+        >{{ username }}
+        </v-list-item>
 
         <v-divider></v-divider>
 
@@ -34,12 +37,16 @@
 </template>
 
 <script setup>
-import {ref} from 'vue';
+import {ref, watchEffect} from 'vue';
 import {useLoginStore} from "@/store/login";
 
 const drawer = ref(true);
+const username = ref();
 const loginStore = useLoginStore();
-const { username } = loginStore;
+
+watchEffect(() => {
+    username.value = loginStore.username;
+})
 
 const items = [
     {icon: 'mdi-head-snowflake-outline', title: 'Free', value: 'Free', link: '/free'},

@@ -19,7 +19,6 @@ import {useRouter} from "vue-router";
 const categoryBoard = 'NOTICE';
 const router = useRouter();
 
-//todo vuex로 빼기
 const goList = () => {
     router.push('/notice')
 };

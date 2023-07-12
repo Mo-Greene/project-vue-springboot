@@ -34,7 +34,6 @@ import java.util.Map;
 public class UserController {
 
     private final UserService userService;
-    private final TokenProvider tokenProvider;
 
     /**
      * 회원가입 로직

@@ -20,23 +20,6 @@
                                 />
                             </v-col>
 
-                            <v-col
-                                    cols="12"
-                                    md="6"
-                            >
-                                <v-text-field
-                                        label="Password"
-                                />
-                            </v-col>
-                            <v-col
-                                    cols="12"
-                                    md="6"
-                            >
-                                <v-text-field
-                                        label="Password Check"
-                                />
-                            </v-col>
-
                             <v-col cols="12">
                                 <v-textarea
                                         label="Content"

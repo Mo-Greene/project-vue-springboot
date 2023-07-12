@@ -89,10 +89,6 @@ const deleteArticleConfirm = () => {
     modalType.value = 'DELETE'
     showPopup.value = true;
 }
-const modifyArticleConfirm = () => {
-    modalType.value = 'MODIFY'
-    showPopup.value = true;
-}
 
 //게시글 수정페이지 이동
 const modifyArticle = (boardNo) => {
